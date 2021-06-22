@@ -8,10 +8,10 @@ public class Task3 {
     }
 
     public static void sum() {
-        long sum = 0;
+        long result = 0;
         for(int i = 1; i < 101; i++) {
-            sum += i * i;
+            result += i * i;
         }
-        System.out.println(sum);
+        System.out.println(result);
     }
 }
