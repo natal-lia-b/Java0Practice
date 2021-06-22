@@ -1,4 +1,4 @@
-package topic1.linear_programs;
+package topic1.part1_linear;
 
 // 1. Найдите значение функции: z = ( (a – 3 ) * b / 2) + c
 

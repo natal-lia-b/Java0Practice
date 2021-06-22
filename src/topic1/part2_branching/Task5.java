@@ -1,4 +1,4 @@
-package topic1.branching;
+package topic1.part2_branching;
 
 /*5. Вычислить значение функции:
 * см. topic1.branching.Task5.jpg*/

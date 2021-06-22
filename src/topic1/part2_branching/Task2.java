@@ -1,4 +1,4 @@
-package topic1.branching;
+package topic1.part2_branching;
 
 /* 2. Найти max{min(a, b), min(c, d)}.*/
 
