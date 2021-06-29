@@ -1,4 +1,4 @@
-package topic2.part2_twoDimentionalArrays;
+package topic2.part2_matrixes;
 
 import java.util.Arrays;
 import java.util.Scanner;
