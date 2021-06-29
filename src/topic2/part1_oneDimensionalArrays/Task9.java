@@ -30,12 +30,12 @@ public class Task9 {
             }
         }
         findMinNumber(findPopularIndex(indexes), indexes, numbers);
-        
+
     }
 
     private static void findMinNumber(int popularIndex, int[] indexes, int[] numbers) {
         int min = Integer.MAX_VALUE;
-        for(int i = 0; i < numbers.length; i++) {
+        for (int i = 0; i < numbers.length; i++) {
             if (indexes[i] == popularIndex && numbers[i] < min) {
                 min = numbers[i];
             }
@@ -61,7 +61,6 @@ public class Task9 {
         }
         return -1;
     }
-
 
 
     private static void initiateArray() {
