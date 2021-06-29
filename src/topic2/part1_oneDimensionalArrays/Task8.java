@@ -48,17 +48,17 @@ public class Task8 {
 
     private static int countNewLength(int min) {
         int newLength = array.length;
-        for (int element: array) {
-           if (element == min) {
-               newLength--;
-           }
+        for (int element : array) {
+            if (element == min) {
+                newLength--;
+            }
         }
         return newLength;
     }
 
     private static int findMin() {
         int min = array[0];
-        for (int element: array) {
+        for (int element : array) {
             min = Integer.min(min, element);
         }
         return min;
