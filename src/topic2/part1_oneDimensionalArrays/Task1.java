@@ -16,9 +16,9 @@ public class Task1 {
         System.out.println("Sum = " + sum(k));
     }
 
-    static int sum(int k){
+    static int sum(int k) {
         int sum = 0;
-        for (int element: array) {
+        for (int element : array) {
             if (element % k == 0) {
                 sum += element;
             }
