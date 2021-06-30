@@ -29,8 +29,12 @@ public class Task5 {
         scanner = new Scanner(System.in);
         int n;
         do {
-            System.out.print("Input n: ");
+            System.out.print("Input even n: ");
             n = scanner.nextInt();
+            if (n % 2 != 0) {
+                System.out.println("n is not even number.");
+                n = -1;
+            }
         } while (n < 0);
         matrix = new int[n][n];
     }
