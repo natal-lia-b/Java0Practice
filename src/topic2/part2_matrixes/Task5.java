@@ -29,13 +29,15 @@ public class Task5 {
         scanner = new Scanner(System.in);
         int n;
         do {
-            System.out.print("Input even n: ");
+            System.out.print("Input positive even n: ");
             n = scanner.nextInt();
-            if (n % 2 != 0) {
-                System.out.println("n is not even number.");
+            if (n < 0) {
+                System.out.printf("%d is not positive number. ", n);
+            } else if (n % 2 != 0) {
+                System.out.printf("%d is not even number. ", n);
                 n = -1;
             }
-        } while (n < 0);
+        } while (n <= 0);
         matrix = new int[n][n];
     }
 
