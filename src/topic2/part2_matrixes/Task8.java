@@ -21,7 +21,6 @@ public class Task8 {
         int min = Integer.min(k, p);
         int max = Integer.max(k, p);
         int number = matrix[0][0];
-//        int[] array = new int[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 if (j == min) {
