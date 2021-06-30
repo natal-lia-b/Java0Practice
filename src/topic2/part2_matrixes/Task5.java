@@ -19,7 +19,7 @@ public class Task5 {
     private static void fillMatrix() {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                matrix[i][j] = j < matrix.length - i? i + 1 : 0;
+                matrix[i][j] = j < matrix.length - i ? i + 1 : 0;
             }
 
         }
