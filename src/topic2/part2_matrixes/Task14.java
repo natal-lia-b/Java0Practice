@@ -15,7 +15,6 @@ public class Task14 {
         printMatrix();
     }
 
-    // create matrix by my own way
     private static void createMatrix() {
         int m = inputDimension("m");
         int n = inputDimension("n");
@@ -39,15 +38,15 @@ public class Task14 {
 
     private static int inputDimension(String s) {
         Scanner scanner = new Scanner(System.in);
-        int dimention;
+        int dimension;
         do {
             System.out.printf("Input matrix dimension %s: ", s);
-            dimention = scanner.nextInt();
-            if (dimention < 0) {
-                System.out.printf("%d is negative, try again. ", dimention);
+            dimension = scanner.nextInt();
+            if (dimension < 0) {
+                System.out.printf("%d is negative, try again. ", dimension);
             }
-        } while (dimention < 0);
-        return dimention;
+        } while (dimension < 0);
+        return dimension;
     }
 
     static void printMatrix() {
