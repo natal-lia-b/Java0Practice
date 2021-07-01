@@ -35,7 +35,6 @@ public class Task13 {
         int k = inputDimension("k");
         int p = inputDimension("p");
         matrix = new int[k][p];
-        int n = 0;
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 int sign = (int) (Math.random() * 100);
