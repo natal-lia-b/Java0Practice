@@ -17,27 +17,31 @@ public class Task10 {
 
     private static void printPositiveElements() {
         for (int i = 0; i < matrix.length; i++) {
-            System.out.print (matrix[i][i] + " ");
+            if (matrix[i][i] > 0) {
+                System.out.print(matrix[i][i] + " ");
+            }
         }
     }
 
     // create matrix by my own way
     private static void createMatrix() {
-        int k = inputDimention();
+        int k = inputDimension();
         matrix = new int[k][k];
         int n = 0;
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                matrix[i][j] = (int) (Math.random() * 10);
+                int sign = (int) (Math.random() * 100);
+                int number = (int) (Math.random() * 10);
+                matrix[i][j] = sign % 2 == 0 ? number : -number;
             }
         }
     }
 
-    private static int inputDimention() {
+    private static int inputDimension() {
         Scanner scanner = new Scanner(System.in);
         int k;
         do {
-            System.out.print("Input matrix dimention: ");
+            System.out.print("Input matrix dimension: ");
             k = scanner.nextInt();
             if (k < 0) {
                 System.out.printf("%d is negative, try again. ", k);
