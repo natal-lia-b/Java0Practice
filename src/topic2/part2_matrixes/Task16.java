@@ -12,9 +12,9 @@ import java.util.Scanner;
  */
 
 public class Task16 {
-    static int[][] square;
-    static int x;
-    static int y;
+    private static int[][] square;
+    private static int x;
+    private static int y;
 
     public static void main(String[] args) {
         createSquare();
@@ -33,7 +33,47 @@ public class Task16 {
     }
 
     private static void fillEvenOdd() {
+        int squareSide = square.length / 2;
+        int firstNumber = 1;
+        int lastNumber = square.length * square.length / 4;
+        int difference = lastNumber;
+        fillSmallSquareEvenOdd(firstNumber, lastNumber, squareSide, 0, 0);
+
+        firstNumber += difference;
+        lastNumber += difference;
+        fillSmallSquareEvenOdd(firstNumber, lastNumber, squareSide, squareSide, squareSide);
+
+        firstNumber += difference;
+        lastNumber += difference;
+        fillSmallSquareEvenOdd(firstNumber, lastNumber, squareSide, squareSide, 0);
+
+        firstNumber += difference;
+        lastNumber += difference;
+        fillSmallSquareEvenOdd(firstNumber, lastNumber, squareSide, 0, squareSide);
     }
+
+    private static void fillSmallSquareEvenOdd(int firstNumber, int lastNumber, int squareSide, int shiftX, int shiftY) {
+        x = 1;
+        y = 0;
+        square[y + shiftY][x + shiftX] = firstNumber;
+        int nextNumber = firstNumber + 1;
+        for (int i = nextNumber; i <= lastNumber; i++) {
+            fillCellOdd(i, squareSide, shiftX, shiftY);
+        }
+    }
+
+//    private static int defineMagicSum(int firstNumber, int lastNumber, int squareSide) {
+//        int sum = defineSum(firstNumber, lastNumber);
+//        return sum / squareSide;
+//    }
+//
+//    private static int defineSum(int firstNumber, int lastNumber) {
+//        int sum = 0;
+//        for (int i = firstNumber; i <= lastNumber; i++) {
+//            sum += i;
+//        }
+//        return sum;
+//    }
 
     private static void fillEvenEven() {
         x = 0;
@@ -43,6 +83,9 @@ public class Task16 {
         int halfLength = square.length / 2;
         int twoLengths = square.length * 2;
         for (int i = 0; i < twoLengths; i++, n++) {
+            if (n == 8) {
+                n = 0;
+            }
             for (int j = 0; j < halfLength; j++, number++) {
                 if (number == 1) {
                     square[y][x] = number;
@@ -52,9 +95,6 @@ public class Task16 {
             }
             correctY(n);
             correctX(n);
-            if (n == 7) {
-                n = -1;
-            }
         }
     }
 
@@ -129,24 +169,22 @@ public class Task16 {
         y = 0;
         square[y][x] = 1;
         for (int i = 2; i < lastIndex; i++) {
-            fillCellOdd(i);
+            fillCellOdd(i, square.length, 0, 0);
         }
     }
 
-    private static void fillCellOdd(int i) {
-        int x_ = checkCoordinateOdd(x + 2);
-        int y_ = checkCoordinateOdd(y + 2);
-        while (square[y_][x_] > 0) {
-            x_ = checkCoordinateOdd(x + 3);
-            y_ = checkCoordinateOdd(y + 1);
+    private static void fillCellOdd(int i, int squareSide, int shiftX, int shiftY) {
+        x = checkCoordinateOdd(x + 2, squareSide);
+        y = checkCoordinateOdd(y + 2, squareSide);
+        while (square[y + shiftY][x + shiftX] > 0) {
+            x = checkCoordinateOdd(x + 3, squareSide);
+            y = checkCoordinateOdd(y + 1, squareSide);
         }
-        x = x_;
-        y = y_;
-        square[y_][x_] = i;
+        square[y + shiftY][x + shiftX] = i;
     }
 
-    private static int checkCoordinateOdd(int coordinate) {
-        return coordinate >= square.length ? coordinate - square.length : coordinate;
+    private static int checkCoordinateOdd(int coordinate, int squareSide) {
+        return coordinate >= squareSide ? coordinate - squareSide : coordinate;
     }
 
     private static void createSquare() {
@@ -167,7 +205,7 @@ public class Task16 {
         return dimension;
     }
 
-    static void printSquare() {
+    private static void printSquare() {
         System.out.println("magic square = ");
         for (int i = 0; i < square.length; i++) {
             for (int j = 0; j < square[0].length; j++) {
