@@ -50,6 +50,38 @@ public class Task16 {
         firstNumber += difference;
         lastNumber += difference;
         fillSmallSquareEvenOdd(firstNumber, lastNumber, squareSide, 0, squareSide);
+
+        changeItems();
+    }
+
+    private static void changeItems() {
+        int changes = square.length / 4;
+        int smallSquareSide = square.length / 2;
+        for (int y = 0; y < smallSquareSide; y++) {
+            swapLeftColumns(smallSquareSide, y);
+        }
+        for (int i = 0; i < changes; i++) {
+            swapCenterColumns(smallSquareSide, i);
+        }
+    }
+
+    private static void swapCenterColumns(int squareSide, int i) {
+        int x = squareSide + i;
+        for (int y = 0; y < squareSide; y++) {
+            swapTwoCenterCells(squareSide, y, x);
+            swapTwoCenterCells(squareSide, y, x - 2 * i - 1);
+        }
+    }
+
+    private static void swapLeftColumns(int squareSide, int y) {
+        int x = (y > 0 && y < squareSide - 1) ? 1 : 0;
+        swapTwoCenterCells(squareSide, y, x);
+    }
+
+    private static void swapTwoCenterCells(int squareSide, int y, int x) {
+        int n = square[y][x];
+        square[y][x] = square[y + squareSide][x];
+        square[y + squareSide][x] = n;
     }
 
     private static void fillSmallSquareEvenOdd(int firstNumber, int lastNumber, int squareSide, int shiftX, int shiftY) {
@@ -61,19 +93,6 @@ public class Task16 {
             fillCellOdd(i, squareSide, shiftX, shiftY);
         }
     }
-
-//    private static int defineMagicSum(int firstNumber, int lastNumber, int squareSide) {
-//        int sum = defineSum(firstNumber, lastNumber);
-//        return sum / squareSide;
-//    }
-//
-//    private static int defineSum(int firstNumber, int lastNumber) {
-//        int sum = 0;
-//        for (int i = firstNumber; i <= lastNumber; i++) {
-//            sum += i;
-//        }
-//        return sum;
-//    }
 
     private static void fillEvenEven() {
         x = 0;
