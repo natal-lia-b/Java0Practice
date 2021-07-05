@@ -36,6 +36,91 @@ public class Task16 {
     }
 
     private static void fillEvenEven() {
+        x = 0;
+        y = 0;
+        int n = 0;
+        int number = 1;
+        int halfLength = square.length / 2;
+        int twoLengths = square.length * 2;
+        for (int i = 0; i < twoLengths; i++, n++) {
+            for (int j = 0; j < halfLength; j++, number++) {
+                if (number == 1) {
+                    square[y][x] = number;
+                    continue;
+                }
+                fillCellEvenEven(n, number);
+            }
+            correctY(n);
+            correctX(n);
+            if (n == 7) {
+                n = -1;
+            }
+        }
+    }
+
+    private static void correctX(int n) {
+        switch (n) {
+            case 1:
+                x++;
+                break;
+            case 3:
+                x = square.length;
+                break;
+            case 5:
+                x--;
+                break;
+            case 7:
+                x = -1;
+                break;
+        }
+    }
+
+    private static void correctY(int n) {
+        switch (n) {
+            case 3:
+            case 7:
+                y = y + 2;
+                break;
+            case 0:
+            case 4:
+                y--;
+                break;
+            case 2:
+            case 6:
+                y++;
+                break;
+        }
+    }
+
+    private static void fillCellEvenEven(int n, int number) {
+        switch (n) {
+            case 0:
+            case 7:
+                x++;
+                y--;
+                break;
+            case 1:
+            case 6:
+                x++;
+                y++;
+                break;
+            case 3:
+            case 4:
+                x--;
+                y--;
+                break;
+            case 2:
+            case 5:
+                x--;
+                y++;
+                break;
+        }
+        int y_ = checkYEvenEven();
+        square[y_][x] = number;
+    }
+
+    private static int checkYEvenEven() {
+        return y < 0 ? y + square.length : y >= square.length ? y - square.length : y;
     }
 
     private static void fillOdd() {
