@@ -21,7 +21,7 @@ public class Task7 {
     }
 
     private static void printSequence(String s, double[] sequence) {
-        System.out.printf("%s", s);
+        System.out.printf("Initial sequence %s = ", s);
         for (double number : sequence) {
             System.out.printf("%10.4f ", number);
         }
@@ -33,8 +33,8 @@ public class Task7 {
         fillSequence(sequenceA);
         sequenceB = new double[inputSequenceLength("B")];
         fillSequence(sequenceB);
-        printSequence("Initial sequenceA = ", sequenceA);
-        printSequence("Initial sequenceB = ", sequenceB);
+        printSequence("A", sequenceA);
+        printSequence("B", sequenceB);
     }
 
     private static void fillSequence(double[] sequence) {
