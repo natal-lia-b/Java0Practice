@@ -26,18 +26,18 @@ public class Task5 {
 
     private static void sortSequence() {
         for (int i = 1; i < sequence.length; i++) {
-            binarySearch(i);
+            sortedSequence.add(binarySearch(i), sequence[i]);
         }
         System.out.println("Sorted sequence = "+ sortedSequence.toString());
     }
 
-    private static void binarySearch(int index) {
+    private static int binarySearch(int index) {
         int firstIndex = 0;
         int lastIndex = sortedSequence.size();
         int midIndex = 0;
         if (sequence[index] >= sortedSequence.get(lastIndex - 1)) {
             sortedSequence.add(sequence[index]);
-            return;
+            return lastIndex;
         }
         while (firstIndex < lastIndex) {
             midIndex = firstIndex + (lastIndex - firstIndex) / 2;
@@ -53,7 +53,7 @@ public class Task5 {
                 }
             }
         }
-        sortedSequence.add(midIndex, sequence[index]);
+        return  midIndex;
     }
 
     private static void printSequence(String s) {
