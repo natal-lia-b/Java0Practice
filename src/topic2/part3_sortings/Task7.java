@@ -1,5 +1,6 @@
 package topic2.part3_sortings;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -14,10 +15,13 @@ public class Task7 {
 
     public static void main(String[] args) {
         createSequences();
-        sortSequences();
+        findIndexes();
     }
 
-    private static void sortSequences() {
+    private static void findIndexes() {
+//        for (int i = 0; i < sequenceB.length; i++) {
+//            Arrays.binarySearch(sequenceA, sequenceB[i]);
+//        }
     }
 
     private static void printSequence(String s, double[] sequence) {
@@ -29,12 +33,15 @@ public class Task7 {
     }
 
     private static void createSequences() {
-        sequenceA = new double[inputSequenceLength("A")];
-        fillSequence(sequenceA);
-        sequenceB = new double[inputSequenceLength("B")];
-        fillSequence(sequenceB);
-        printSequence("A", sequenceA);
-        printSequence("B", sequenceB);
+        createOneSequence("A", sequenceA);
+        createOneSequence("B", sequenceB);
+    }
+
+    private static void createOneSequence(String s, double[] sequence) {
+        sequence = new double[inputSequenceLength(s)];
+        fillSequence(sequence);
+        Arrays.sort(sequence);
+        printSequence(s, sequence);
     }
 
     private static void fillSequence(double[] sequence) {
