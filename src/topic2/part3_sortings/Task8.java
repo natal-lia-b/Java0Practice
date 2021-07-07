@@ -21,7 +21,6 @@ public class Task8 {
     }
 
     private static void findLowestCommonDenominator() {
-        int greatestCommonFactor = q[0];  // НОД
         int lowestCommonMultiple = q[0];  // НОК
         for (int i = 1; i < q.length; i++) {
             lowestCommonMultiple = lowestCommonMultiple * q[i] / findGCF(lowestCommonMultiple, q[i]);
@@ -36,7 +35,7 @@ public class Task8 {
         System.out.println("Sorted sequence =");
         printSequence();
     }
-
+    // НОД
     private static int findGCF(int b, int a) {
         while (a != 0 && b != 0) {
             if (a >= b) {
@@ -92,5 +91,4 @@ public class Task8 {
         } while (sequenceLength <= 0);
         return sequenceLength;
     }
-
 }
