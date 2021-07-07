@@ -16,6 +16,7 @@ public class Task1 {
         System.out.println("The lowest common multiple (НОК) = " + findLCM(a, b, greatestCommonFactor));
 
     }
+
     // НОК
     private static int findLCM(int a, int b, int greatestCommonFactor) {
         return a * b / greatestCommonFactor;
