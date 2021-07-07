@@ -19,9 +19,42 @@ public class Task7 {
     }
 
     private static void findIndexes() {
-//        for (int i = 0; i < sequenceB.length; i++) {
-//            Arrays.binarySearch(sequenceA, sequenceB[i]);
-//        }
+        for (int i = 0; i < sequenceB.length; i++) {
+            int j = 0;
+            while (j < sequenceA.length && sequenceB[i] > sequenceA[j]) {
+                j++;
+            }
+            if (j == sequenceA.length) {
+                System.out.printf("B[%d]=%10.4f at the end of A", i, sequenceB[i]);
+            } else {
+                System.out.printf("B[%d]=%10.4f to the left of A[%d]", i, sequenceB[i], j);
+            }
+            System.out.println();
+        }
+    }
+
+    private static int binarySearch(int index) {
+        int firstIndex = 0;
+        int lastIndex = sequenceA.length - 1;
+        int midIndex = 0;
+        if (sequenceB[index] >= sequenceA[lastIndex]) {
+            return lastIndex;
+        }
+        while (firstIndex < lastIndex) {
+            midIndex = firstIndex + (lastIndex - firstIndex) / 2;
+            if (sequenceB[index] == sequenceA[lastIndex]) {
+                break;
+            } else {
+                if (sequenceB[index] < sequenceA[lastIndex]) {
+                    lastIndex = midIndex;
+                    midIndex = lastIndex;
+                } else {
+                    firstIndex = midIndex + 1;
+                    midIndex = firstIndex;
+                }
+            }
+        }
+        return midIndex;
     }
 
     private static void printSequence(String s, double[] sequence) {
@@ -33,12 +66,13 @@ public class Task7 {
     }
 
     private static void createSequences() {
+        sequenceA = new double[inputSequenceLength("A")];
         createOneSequence("A", sequenceA);
+        sequenceB = new double[inputSequenceLength("B")];
         createOneSequence("B", sequenceB);
     }
 
     private static void createOneSequence(String s, double[] sequence) {
-        sequence = new double[inputSequenceLength(s)];
         fillSequence(sequence);
         Arrays.sort(sequence);
         printSequence(s, sequence);
