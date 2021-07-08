@@ -27,12 +27,12 @@ public class Task9 {
 
     private static double inputNumber(String s) {
         Scanner scanner = new Scanner(System.in);
-        int number;
+        double number;
         do {
             System.out.printf("Input %s: ", s);
-            number = scanner.nextInt();
+            number = scanner.nextDouble();
             if (number <= 0) {
-                System.out.printf("%d must be greater than 0, try again. ", number);
+                System.out.printf("%f must be greater than 0, try again. ", number);
             }
         } while (number <= 0);
         return number;
