@@ -8,7 +8,6 @@ public class Task2 {
     public static void main(String[] args) {
         String string = "100 indifferent words are worse than one kind word.";
         System.out.println(changeWord(string));
-
     }
 
     private static String changeWord(String string) {
