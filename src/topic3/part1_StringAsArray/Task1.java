@@ -1,5 +1,7 @@
 package topic3.part1_StringAsArray;
 
+import java.util.Arrays;
+
 /**
  * 1. Дан массив названий переменных в camelCase. Преобразовать названия в snake_case.
  */
@@ -7,7 +9,8 @@ package topic3.part1_StringAsArray;
 public class Task1 {
     public static void main(String[] args) {
         String[] names = {"firstVarName", "secondVarName", "thirdVarNameKuKu"};
-        printNames(transformNames(names));
+        System.out.println("Initial array = " + Arrays.toString(names));
+        System.out.println("Result array =  " + Arrays.toString(transformNames(names)));
     }
 
     private static String[] transformNames(String[] names) {
@@ -29,13 +32,5 @@ public class Task1 {
             newNames[s] = String.valueOf(newChars);
         }
         return newNames;
-    }
-
-    private static void printNames(String[] newNames) {
-        System.out.print("[");
-        for (String oneName : newNames) {
-            System.out.printf("%s ", oneName);
-        }
-        System.out.println("]");
     }
 }
