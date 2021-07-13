@@ -17,10 +17,10 @@ public class Task4 {
 
     public static void main(String[] args) {
         createArray();
-        revertArray();
+        sortWithExchanges();
     }
 
-    private static void revertArray() {
+    private static void sortWithExchanges() {
         int lastIndex = array1.length - 1;
         int count = 0;
         for (int i = 0; i < lastIndex; i++) {
@@ -33,8 +33,8 @@ public class Task4 {
                 }
             }
         }
-        printArray("Reverted array = ");
-        System.out.printf("Count of revertions = %d", count);
+        printArray("Sorted array  = ");
+        System.out.printf("Count of exchanges = %d", count);
     }
 
     private static void printArray(String s) {
@@ -44,7 +44,7 @@ public class Task4 {
     private static void createArray() {
         array1 = new int[inputArrayLength()];
         fillArray();
-        printArray("Initial array  = ");
+        printArray("Initial array = ");
     }
 
     private static void fillArray() {
