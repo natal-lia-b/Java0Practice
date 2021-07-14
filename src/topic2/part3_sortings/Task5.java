@@ -28,7 +28,7 @@ public class Task5 {
         for (int i = 1; i < sequence.length; i++) {
             sortedSequence.add(binarySearch(i), sequence[i]);
         }
-        System.out.println("Sorted sequence = "+ sortedSequence.toString());
+        System.out.println("Sorted sequence  = "+ sortedSequence.toString());
     }
 
     private static int binarySearch(int index) {
@@ -36,7 +36,7 @@ public class Task5 {
         int lastIndex = sortedSequence.size();
         int midIndex = 0;
         if (sequence[index] >= sortedSequence.get(lastIndex - 1)) {
-            sortedSequence.add(sequence[index]);
+//            sortedSequence.add(sequence[index]);
             return lastIndex;
         }
         while (firstIndex < lastIndex) {
