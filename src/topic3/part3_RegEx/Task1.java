@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * <p>
  * 1 paragraph - 3 sentences
  * 2 paragraph - 2 sentences
- * 2 paragraph - 1 sentence
+ * 3 paragraph - 1 sentence
  */
 
 public class Task1 {
@@ -28,14 +28,14 @@ public class Task1 {
     }
 
     private static void startApp(String string) {
-        String[] paragraphs = string.split("\n");
+        List<ArrayList> paragraphs = createParagraphsAsArrayList(string.split("\n"));
         Scanner scanner = new Scanner(System.in);
         System.out.println("1 - отсортировать абзацы по количеству предложений, \n" +
                 "2 - в каждом предложении отсортировать слова по длине,\n" +
                 "3 - отсортировать лексемы в предложении,\n" +
                 "0 - выход.");
         while (true) {
-            System.out.print("\\nВыберите действие: ");
+            System.out.print("\nВыберите действие: ");
             int action = scanner.nextInt();
             switch (action) {
                 case 1: {
@@ -43,7 +43,7 @@ public class Task1 {
                     break;
                 }
                 case 2: {
-                    sortWordsInSentences(string);
+                    sortWordsInSentences(paragraphs);
                     break;
                 }
                 case 3: {
@@ -61,18 +61,54 @@ public class Task1 {
         System.out.println("sortLexemes");
     }
 
-    private static void sortWordsInSentences(String string) {
-        System.out.println("sortWordsInSentences");
+    private static void sortWordsInSentences(List<ArrayList> paragraphs) {
+        System.out.println("Предложения с отсортированными по длине словами:");
+        for (ArrayList paragraph : paragraphs) {
+            for (int i = 0; i < paragraph.size(); i++) {
+                String sentence = (String) paragraph.get(i);
+                sentence = sentence.replaceAll("[\\p{Punct}|–]+", "");
+                String[] words = sentence.split("[\\s]+");
+                ArrayList<String> sortedWords = new ArrayList<>();
+                sortedWords.add(words[0]);
+                for (int j = 1; j < words.length; j++) {
+                    sortedWords.add(binarySearch(j, words, sortedWords), words[j]);
+                }
+                System.out.println(sortedWords.toString());
+            }
+        }
     }
 
-    private static void sortParagraphs(String[] paragraphs) {
-        List<ArrayList> newParagraphs = createParagraphsAsArrayList(paragraphs);
+    private static int binarySearch(int index, String[] words, ArrayList<String> sortedWords) {
+        int firstIndex = 0;
+        int lastIndex = sortedWords.size();
+        int midIndex = 0;
+        if (words[index].length() >= sortedWords.get(lastIndex - 1).length()) {
+            return lastIndex;
+        }
+        while (firstIndex < lastIndex) {
+            midIndex = firstIndex + (lastIndex - firstIndex) / 2;
+            if (words[index].length() == sortedWords.get(midIndex).length()) {
+                break;
+            } else {
+                if (words[index].length() < sortedWords.get(midIndex).length()) {
+                    lastIndex = midIndex;
+                    midIndex = lastIndex;
+                } else {
+                    firstIndex = midIndex + 1;
+                    midIndex = firstIndex;
+                }
+            }
+        }
+        return  midIndex;
+    }
+
+    private static void sortParagraphs(List<ArrayList> paragraphs) {
         int i = 1;
-        while (i < newParagraphs.size()) {
-            if (newParagraphs.get(i).size() < newParagraphs.get(i - 1).size()) {
-                ArrayList copySentence = newParagraphs.get(i);
-                newParagraphs.set(i, newParagraphs.get(i - 1));
-                newParagraphs.set(i - 1, copySentence);
+        while (i < paragraphs.size()) {
+            if (paragraphs.get(i).size() < paragraphs.get(i - 1).size()) {
+                ArrayList paragraph = paragraphs.get(i);
+                paragraphs.set(i, paragraphs.get(i - 1));
+                paragraphs.set(i - 1, paragraph);
                 if (i > 1) {
                     i--;
                 }
@@ -80,9 +116,9 @@ public class Task1 {
                 i++;
             }
         }
-        if (newParagraphs.size() > 0) {
-            System.out.println("Sorted paragraphes :");
-            for (ArrayList oneParagraph : newParagraphs) {
+        if (paragraphs.size() > 0) {
+            System.out.println("Отсортированные абзацы:");
+            for (ArrayList oneParagraph : paragraphs) {
                 System.out.println(oneParagraph);
             }
         }
@@ -100,7 +136,7 @@ public class Task1 {
                 sentences.add(matcher.group());
             }
             newParagraphs.add(sentences);
-            System.out.println("newList.size = " + sentences.size() + sentences.toString());
+//            System.out.println("newList.size = " + sentences.size() + sentences.toString());
         }
         return newParagraphs;
     }
