@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * 3. Сортировка выбором. Дана последовательность чисел (см. Task2.jpg, последовательность а).
+ * 3. Сортировка выбором. Дана последовательность чисел a.
  * Требуется переставить элементы так, чтобы они были расположены по убыванию.
  * Для этого в массиве, начиная с первого, выбирается наибольший элемент и ставится на первое место,
  * а первый - на место наибольшего. Затем, начиная со второго, эта процедура повторяется.
@@ -16,15 +16,23 @@ public class Task3 {
 
     public static void main(String[] args) {
         createArray();
-        revertArray();
+        sortArray();
     }
 
-    private static void revertArray() {
-        int lastIndex = array1.length - 1;
-        for (int i = 0; i < array1.length / 2; i++) {
-            int copyItem = array1[i];
-            array1[i] = array1[lastIndex - i];
-            array1[lastIndex - i] = copyItem;
+    private static void sortArray() {
+        for (int i = 0; i < array1.length; i++) {
+            int max = array1[i];
+            int index = i;
+            for (int j = i + 1; j < array1.length; j++) {
+                if (array1[j] > max) {
+                    max = array1[j];
+                    index = j;
+                }
+            }
+            if (index > i) {
+                array1[index] = array1[i];
+                array1[i] = max;
+            }
         }
         printArray("reverted array = ");
     }
@@ -43,7 +51,6 @@ public class Task3 {
         for (int i = 0; i < array1.length; i++) {
             array1[i] = (int) (Math.random() * 101);
         }
-        Arrays.sort(array1);
     }
 
     private static int inputArrayLength() {
