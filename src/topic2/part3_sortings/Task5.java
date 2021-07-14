@@ -36,7 +36,6 @@ public class Task5 {
         int lastIndex = sortedSequence.size();
         int midIndex = 0;
         if (sequence[index] >= sortedSequence.get(lastIndex - 1)) {
-//            sortedSequence.add(sequence[index]);
             return lastIndex;
         }
         while (firstIndex < lastIndex) {
