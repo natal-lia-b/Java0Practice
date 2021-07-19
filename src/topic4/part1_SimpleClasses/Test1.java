@@ -1,4 +1,4 @@
-package topic4.part1;
+package topic4.part1_SimpleClasses;
 
 /**
  * 1. Создайте класс Test1 двумя переменными.
@@ -28,6 +28,7 @@ public class Test1 {
     public void setVar1(int var1) {
         this.var1 = var1;
     }
+
 
     public void setVar2(int var2) {
         this.var2 = var2;
