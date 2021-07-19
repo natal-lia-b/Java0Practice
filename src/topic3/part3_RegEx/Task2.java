@@ -33,12 +33,14 @@ public class Task2 {
                 "       <from>Света</from>\n" +
                 "       <heading>Напоминание</heading>\n" +
                 "       <body>Позвони мне завтра!</body>\n" +
-//                "   </note>\n" +
+                "   </note>\n" +
                 "   <note id = \"2\">\n" +
                 "       <to>Петя</to>\n" +
                 "       <from>Маша</from>\n" +
                 "       <heading>Важное напоминание</heading>\n" +
-                "       <body/>\n" +
+// !! next two strings are of the wrong format. If you want to see positive results of the app,
+// add comment on string 43 and take comment off string 44.
+//                "       <body/>\n" +
                 "   </note>\n" +
                 "</notes>\n";
         System.out.println(parse(xmlText));
@@ -50,10 +52,10 @@ public class Task2 {
         Pattern patternAttributes = Pattern.compile("<\\w+(\\s+\\w+)+");
 
         String[] lines = xmlText.split("\n");
-        boolean isWrongFormat = false;
         StringBuilder result = new StringBuilder();
         StringBuilder resultWrongFormat = new StringBuilder();
         ArrayList<Integer> closedTagsIndexes = new ArrayList<>();
+        boolean isWrongFormat = false;
 
         for (int i = 0; i < lines.length; i++) {
             Matcher matcherOpenedTag = patternOpenedTag.matcher(lines[i]);
@@ -61,63 +63,77 @@ public class Task2 {
                 String name = matcherOpenedTag.group();
                 result.append(name).append("> - tag is opened.\n");
 
-//                Pattern patternWrongFormat = Pattern.compile("(" + name + "){1}(^[\\s>])+");
-                Pattern patternWrongFormat = Pattern.compile(name + "/");
-                Matcher matcherWrongFormat = patternWrongFormat.matcher(lines[i]);
-                if (matcherWrongFormat.find()) {
-                    isWrongFormat = true;
-                    resultWrongFormat.append("Line".concat((i + 1) + ". Wrong tag format.\n"));
+                isWrongFormat = isWrongTagFormat(name, lines[i], resultWrongFormat, i);
+                if (isWrongFormat) {
                     continue;
                 }
 
-                Matcher matcherAttributes = patternAttributes.matcher(lines[i].strip());
-                if (matcherAttributes.find()) {
-                    String attributes = lines[i].strip().replaceAll(name, "").replaceAll("[<>/]", "").strip();
-                    result.append(attributes).append(" - attributes.\n");
-                }
+                findAttributes(patternAttributes.matcher(lines[i].strip()), lines[i], result, name);
 
-                Pattern patternClosedTag = Pattern.compile("</" + name.replaceAll("<", ""));
-                int j = i;
-                StringBuilder content = new StringBuilder();
-                boolean isClosed = false;
-                while (j < lines.length) {
-                    Matcher matcherClosedTag = patternClosedTag.matcher(lines[j]);
-                    if (matcherClosedTag.find()) {
-                        if (i == j) {
-                            Matcher matcherContent = patternContent.matcher(lines[j]);
-                            if (matcherContent.find()) {
-                                result.append(matcherContent.group(), 1, matcherContent.group().length() - 1);
-                            }
-                        } else {
-                            result.append(content);
-                        }
-                        if (closedTagsIndexes.contains(j)) {
-                            isClosed = false;
-                        } else {
-                            closedTagsIndexes.add(j);
-                            isClosed = true;
-                        }
-                        result.append(" - content.\n");
-                        result.append(matcherClosedTag.group()).append("> - tag is closed.\n");
-                        break;
-                    }
-                    if (i != j) {
-                        content.append(lines[j].concat("\n"));
-                    }
-                    j++;
-                }
-                if (!isClosed) {
-                    isWrongFormat = true;
-                    resultWrongFormat.append("Line".concat((i + 1) + ". Opened tag is not closed.\n"));
+                if (!isClosedTag(patternContent, lines, result, closedTagsIndexes, i, name)) {
+                    isWrongFormat = addWrongFormatMessage(resultWrongFormat, i, ". Opened tag is not closed.\n");
                 }
             } else {
                 if (!closedTagsIndexes.contains(i)) {
-                    isWrongFormat = true;
-                    resultWrongFormat.append("Line".concat((i + 1) + ". Opened tag is not found.\n"));
+                    isWrongFormat = addWrongFormatMessage(resultWrongFormat, i, ". Opened tag is not found.\n");
                 }
             }
-
         }
         return isWrongFormat ? resultWrongFormat.toString() : result.toString();
+    }
+
+    private static boolean addWrongFormatMessage(StringBuilder resultWrongFormat, int i, String message) {
+        resultWrongFormat.append("Line".concat((i + 1) + message));
+        return true;
+    }
+
+    private static boolean isClosedTag(Pattern patternContent, String[] lines, StringBuilder result,
+                                       ArrayList<Integer> closedTagsIndexes, int i, String name) {
+        Pattern patternClosedTag = Pattern.compile("</" + name.replaceAll("<", ""));
+        int j = i;
+        StringBuilder content = new StringBuilder();
+        boolean isClosed = false;
+        while (j < lines.length) {
+            Matcher matcherClosedTag = patternClosedTag.matcher(lines[j]);
+            if (matcherClosedTag.find()) {
+                if (i == j) {
+                    Matcher matcherContent = patternContent.matcher(lines[j]);
+                    if (matcherContent.find()) {
+                        result.append(matcherContent.group(), 1, matcherContent.group().length() - 1);
+                    }
+                } else {
+                    result.append(content);
+                }
+                if (!closedTagsIndexes.contains(j)) {
+                    closedTagsIndexes.add(j);
+                    isClosed = true;
+                }
+                result.append(" - content.\n");
+                result.append(matcherClosedTag.group()).append("> - tag is closed.\n");
+                break;
+            }
+            if (i != j) {
+                content.append(lines[j].concat("\n"));
+            }
+            j++;
+        }
+        return isClosed;
+    }
+
+    private static void findAttributes(Matcher matcher, String line, StringBuilder result, String name) {
+        if (matcher.find()) {
+            String attributes = line.strip().replaceAll(name, "").replaceAll("[<>/]", "").strip();
+            result.append(attributes).append(" - attributes.\n");
+        }
+    }
+
+    private static boolean isWrongTagFormat(String name, String line, StringBuilder resultWrongFormat, int i) {
+        boolean isWrongFormat = false;
+        Pattern patternWrongFormat = Pattern.compile(name + "/");
+        Matcher matcherWrongFormat = patternWrongFormat.matcher(line);
+        if (matcherWrongFormat.find()) {
+            isWrongFormat = addWrongFormatMessage(resultWrongFormat, i, ". Wrong tag format.\n");
+        }
+        return isWrongFormat;
     }
 }
