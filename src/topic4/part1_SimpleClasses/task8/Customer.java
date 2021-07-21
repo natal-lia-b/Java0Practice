@@ -1,4 +1,4 @@
-package topic4.part1_SimpleClasses;
+package topic4.part1_SimpleClasses.task8;
 
 /**
  * 8. Создать класс Customer, спецификация которого приведена ниже.
