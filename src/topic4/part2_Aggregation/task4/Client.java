@@ -2,13 +2,6 @@ package topic4.part2_Aggregation.task4;
 
 import java.util.Arrays;
 
-/**
- * 4. Счета. Клиент может иметь несколько счетов в банке.
- * Учитывать возможность блокировки/разблокировки счета.
- * Реализовать поиск и сортировку счетов. Вычисление общей суммы по счетам.
- * Вычисление суммы по всем счетам, имеющим положительный и отрицательный балансы отдельно.
- */
-
 public class Client {
 
     private String name;
@@ -24,25 +17,6 @@ public class Client {
     public Client(Client client) {
         this.name = client.getName();
         this.bankAccounts = Arrays.copyOf(client.bankAccounts, client.bankAccounts.length);
-    }
-
-    public static void main(String[] args) {
-        BankAccount[] bankAccounts = new BankAccount[4];
-        bankAccounts[0] = new BankAccount(125478, true, 100., BankAccount.Currencies.USD);
-        bankAccounts[1] = new BankAccount(523698, true, 52.36);
-        bankAccounts[2] = new BankAccount(969696, true, -63.36);
-        bankAccounts[3] = new BankAccount(856985, true, -1000, BankAccount.Currencies.EUR);
-        Client client = new Client("Ivanov I.I.", bankAccounts);
-        System.out.println(client.toString());
-
-        Client sortedClient = client.sortByNumber();
-        System.out.println(sortedClient);
-
-        System.out.println(client.findByAccountNumber(125478));
-
-        System.out.println("Sum = " + client.countSum());
-        System.out.println("Total positive sum = " + client.countPositiveSum());
-        System.out.println("Total negative sum = " + client.countNegativeSum());
     }
 
     public double countNegativeSum() {
@@ -75,7 +49,7 @@ public class Client {
         return sum;
     }
 
-    private double getExchangedSum(BankAccount.Currencies currency, double sum) {
+    private double getExchangedSum(Currencies currency, double sum) {
         double rate = 1;
         switch (currency) {
             case EUR: {

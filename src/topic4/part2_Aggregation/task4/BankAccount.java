@@ -1,9 +1,6 @@
 package topic4.part2_Aggregation.task4;
 
 public class BankAccount {
-    public enum Currencies {
-        BYN, USD, EUR
-    }
 
     private int accountNumber;
     private boolean isAble;
