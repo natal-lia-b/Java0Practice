@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
 
 /**
  * 1. Cоздать приложение, разбирающее текст (текст хранится в строке) и позволяющее выполнять с текстом
- * три различных операции:
- * отсортировать абзацы по количеству предложений;
- * в каждом предложении отсортировать слова по длине;
- * отсортировать лексемы в предложении по убыванию количества вхождений заданного символа, а в случае равенства – по алфавиту.
+ *  три различных операции:
+ * 1) отсортировать абзацы по количеству предложений;
+ * 2) в каждом предложении отсортировать слова по длине;
+ * 3) отсортировать лексемы в предложении по убыванию количества вхождений заданного символа, а в случае равенства – по алфавиту.
  */
 
 public class Task1 {
@@ -58,40 +58,58 @@ public class Task1 {
     }
 
     private static void sortLexemes(List<ArrayList> paragraphs) {
-        System.out.print("Введите один символ: ");
-        Scanner scanner = new Scanner(System.in);
-        String string = scanner.next();
-        char ch = string.charAt(0);
-        if (string.length() > 1) {
-            System.out.println("Введено больше, чем 1 символ. Заданным символом принимается " + ch);
-        }
+        char ch = getChar();
+
         System.out.println("Лексемы в предложении, отсортированные по убыванию количества вхождений заданного символа:");
         for (ArrayList paragraph : paragraphs) {
             for (int i = 0; i < paragraph.size(); i++) {
                 String[] words = createWords(paragraph, i);
-                ArrayList<String> sortedWords = new ArrayList<>();
-                sortedWords.add(words[0]);
-                for (int j = 1; j < words.length; j++) {
-                    sortedWords.add(binarySearchForLexemes(j, words, sortedWords, ch), words[j]);
-                }
-                ArrayList<String> wordsToABC = new ArrayList<>();
-                ArrayList<String> result = new ArrayList<>();
-                int chAmount = getCharAmount(sortedWords.get(0), ch);
-                for (String sortedWord: sortedWords) {
-                    int chAmountJ = getCharAmount(sortedWord, ch);
-                    if (chAmount != chAmountJ) {
-                        wordsToABCSort(result, wordsToABC);
-                        wordsToABC = new ArrayList<>();
-                        chAmount = chAmountJ;
-                    }
-                    wordsToABC.add(sortedWord);
-                }
-                if (wordsToABC.size() > 0) {
-                    wordsToABCSort(result, wordsToABC);
-                }
-                System.out.println(result.toString());
+                ArrayList<String> sortedWords = getSortedWords(words, ch);
+
+                ArrayList<String> sortedLexemes = getSortedLexemes(ch, sortedWords);
+                System.out.println(sortedLexemes.toString());
             }
         }
+    }
+
+    private static ArrayList<String> getSortedLexemes(char ch, ArrayList<String> sortedWords) {
+        ArrayList<String> wordsToABC = new ArrayList<>();
+        ArrayList<String> sortedLexemes = new ArrayList<>();
+        int chAmount = getCharAmount(sortedWords.get(0), ch);
+
+        for (String sortedWord: sortedWords) {
+            int chAmountJ = getCharAmount(sortedWord, ch);
+            if (chAmount != chAmountJ) {
+                wordsToABCSort(sortedLexemes, wordsToABC);
+                wordsToABC = new ArrayList<>();
+                chAmount = chAmountJ;
+            }
+            wordsToABC.add(sortedWord);
+        }
+
+        if (wordsToABC.size() > 0) {
+            wordsToABCSort(sortedLexemes, wordsToABC);
+        }
+        return sortedLexemes;
+    }
+
+    private static ArrayList<String> getSortedWords(String[] words, char ch) {
+        ArrayList<String> sortedWords = new ArrayList<>();
+        sortedWords.add(words[0]);
+        for (int j = 1; j < words.length; j++) {
+            sortedWords.add(binarySearchForLexemes(j, words, sortedWords, ch), words[j]);
+        }
+        return sortedWords;
+    }
+
+    private static char getChar() {
+        System.out.print("Введите один символ: ");
+        Scanner scanner = new Scanner(System.in);
+        String string = scanner.next();
+        if (string.length() > 1) {
+            System.out.println("Введено больше, чем 1 символ. Заданным символом принимается " + string.charAt(0));
+        }
+        return string.charAt(0);
     }
 
     private static void wordsToABCSort(ArrayList<String> result, ArrayList<String> wordsToABC) {
