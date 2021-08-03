@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * 1. Cоздать приложение, разбирающее текст (текст хранится в строке) и позволяющее выполнять с текстом
- *  три различных операции:
+ * три различных операции:
  * 1) отсортировать абзацы по количеству предложений;
  * 2) в каждом предложении отсортировать слова по длине;
  * 3) отсортировать лексемы в предложении по убыванию количества вхождений заданного символа, а в случае равенства – по алфавиту.
@@ -54,6 +54,9 @@ public class Task1 {
                 case 0: {
                     return;
                 }
+                default: {
+                    System.out.println("Нераспознанное число, повторите ввод.");
+                }
             }
         }
     }
@@ -78,7 +81,7 @@ public class Task1 {
         ArrayList<String> sortedLexemes = new ArrayList<>();
         int chAmount = getCharAmount(sortedWords.get(0), ch);
 
-        for (String sortedWord: sortedWords) {
+        for (String sortedWord : sortedWords) {
             int chAmountJ = getCharAmount(sortedWord, ch);
             if (chAmount != chAmountJ) {
                 wordsToABCSort(sortedLexemes, wordsToABC);
