@@ -10,7 +10,6 @@ package topic4.part2_Aggregation.task5.enums;
  */
 
 public enum TravelType {
-    REST("Rest"),
     EXCURSION("Excursion"),
     MEDICAL_TOURIZM("Medical tourizm"),
     SHOPPING("Shopping"),
@@ -29,5 +28,20 @@ public enum TravelType {
 
     TravelType(String travelName) {
         this.travelName = travelName;
+    }
+
+    public static TravelType getTravelByOrdinal(int ordinal) {
+        ordinal--;
+        TravelType result = null;
+        TravelType[] types = TravelType.values();
+        int i = 0;
+        while (i < types.length) {
+            if (types[i].ordinal() == ordinal) {
+                result = types[i];
+                break;
+            }
+            i++;
+        }
+        return result;
     }
 }

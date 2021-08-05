@@ -27,4 +27,19 @@ public enum CateringType {
     CateringType(String cateringName) {
         this.cateringName = cateringName;
     }
+
+    public static CateringType getCateringByOrdinal(int ordinal) {
+        ordinal--;
+        CateringType result = null;
+        CateringType[] types = CateringType.values();
+        int i = 0;
+        while (i < types.length) {
+            if (types[i].ordinal() == ordinal) {
+                result = types[i];
+                break;
+            }
+            i++;
+        }
+        return result;
+    }
 }

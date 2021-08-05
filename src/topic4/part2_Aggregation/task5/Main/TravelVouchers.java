@@ -1,6 +1,8 @@
 package topic4.part2_Aggregation.task5.Main;
 
 import topic4.part2_Aggregation.task5.actions.FillTravelCollection;
+import topic4.part2_Aggregation.task5.actions.FilterVouchers;
+import topic4.part2_Aggregation.task5.actions.Service;
 import topic4.part2_Aggregation.task5.entities.TravelCollection;
 
 import java.io.File;
@@ -20,44 +22,49 @@ import java.util.Scanner;
  * @since 03.08.2021
  */
 
-class TravelVouchers {
+public class TravelVouchers {
 
     //    private static final Logger log = Logger.getLogger(MainTask04.class);
-    public static final String FILE_PATH = "v:\\Projects\\Java0Practice\\src\\topic4\\part2_Aggregation\\task5\\Data.txt";
+    private static final String FILE_PATH = "v:\\Projects\\Java0Practice\\src\\topic4\\part2_Aggregation\\task5\\Data.txt";
 
     private static void start() {
         Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+        System.out.println("WELCOME!  We'll do our best to find your travel.\n");
+        String message = "\nMain menu:\n" +
+                "1 - show travel collection including all available tours,\n" +
+                "2 - set filters,\n" +
+                "0 - exit.\n" +
+                "Choose the action: ";
+        TravelCollection filteredTravel = new TravelCollection();
+        TravelCollection travelCollection = new TravelCollection();
+        fillCollection(travelCollection);
 
-        while (true) {
-            System.out.println("WELCOME!  We'll do our best to find your travel.\n" +
-                    "1 - fill the collection,\n" +
-                    "0 - exit.");
-            int inputNumber;
-            try {
-                inputNumber = Integer.valueOf(scanner.next());
-            } catch (NumberFormatException e) {
-                System.out.println("Something is wrong, try again.");
-                continue;
-//            } catch (Exception e) {
-//                System.out.println("Something is wrong, try again.");
-            }
-            TravelCollection oneTravel = new TravelCollection();
+        OUT0: while (true) {
+            Integer inputNumber = Service.getInputNumber(scanner, message);
+            if (inputNumber == null) continue;
 
             switch (inputNumber) {
                 case 1:
-                    File file = new File(FILE_PATH);
-                    FillTravelCollection fillTravelCollection = new FillTravelCollection(file, oneTravel);
-                    fillTravelCollection.fill();
-                    System.out.println(oneTravel.toString());
+                    System.out.println(travelCollection.toString());
                     break;
+                case 2:
+                    FilterVouchers filterVouchers = new FilterVouchers(travelCollection);
+                    filterVouchers.setFilters(scanner);
+                    continue OUT0;
                 case 0:
-                    System.out.println("We were glad to see you, come again! Bye!");
+                    System.out.println("We were glad to see you, come again. Bye!");
                     return;
-                default:
-                    System.out.println("Bad number, try again.");
-                    break;
+                default: {
+                    System.out.println("Bad input, try again.");
+                }
             }
         }
+    }
+
+    private static void fillCollection(TravelCollection oneTravel) {
+        File file = new File(FILE_PATH);
+        FillTravelCollection fillTravelCollection = new FillTravelCollection(file, oneTravel);
+        fillTravelCollection.fill();
     }
 
     public static void main(String[] args) {

@@ -27,4 +27,19 @@ public enum TransportType {
     TransportType(String transportName) {
         this.transportName = transportName;
     }
+
+    public static TransportType getTransportByOrdinal(int ordinal) {
+        ordinal--;
+        TransportType result = null;
+        TransportType[] types = TransportType.values();
+        int i = 0;
+        while (i < types.length) {
+            if (types[i].ordinal() == ordinal) {
+                result = types[i];
+                break;
+            }
+            i++;
+        }
+        return result;
+    }
 }

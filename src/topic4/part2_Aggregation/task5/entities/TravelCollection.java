@@ -22,6 +22,10 @@ public class TravelCollection {
         travelList.add(oneTravel);
     }
 
+    public ArrayList<Travel> getTravelList() {
+        return travelList;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

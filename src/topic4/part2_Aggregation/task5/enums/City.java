@@ -10,32 +10,18 @@ package topic4.part2_Aggregation.task5.enums;
  */
 
 public enum City {
-    GARODNYA("Garodnya"),
-    MAHILEU("Mahileu"),
-    STAKHOLM("Stakholm"),
     MENSK("Mensk"),
     PORTO("Porto"),
     MILAN("Milan"),
     BARSELONA("Barselona"),
     KIEU("Kieu"),
-    MASKWA("Maskwa"),
     VILNYA("Vilnya"),
     WARSHAWA("Warshawa"),
-    RYGA("Ryga"),
-    BARYSAU("Barysau"),
-    ZHODZINA("Zhodzina"),
-    VITSEBSK("Vitsebsk"),
     PARIS("Paris"),
     BERLIN("Berlin"),
     PRAHA("Praha"),
     MADRYD("Madryd"),
-    LONDAN("Londan"),
-    TALIN("Talin"),
-    HELSINKI("Helsinki"),
-    GOMEL("Gomel"),
-    KAZAN("Kazan"),
-    BRATSISLAVA("Bratsislava"),
-    ZASLAUE("Zaslaue");
+    LONDAN("Londan");
 
     @Override
     public String toString() {
@@ -46,5 +32,20 @@ public enum City {
 
     City(String cityName) {
         this.cityName = cityName;
+    }
+
+    public static City getCityByOrdinal(int ordinal) {
+        ordinal--;
+        City result = null;
+        City[] types = City.values();
+        int i = 0;
+        while (i < types.length) {
+            if (types[i].ordinal() == ordinal) {
+                result = types[i];
+                break;
+            }
+            i++;
+        }
+        return result;
     }
 }

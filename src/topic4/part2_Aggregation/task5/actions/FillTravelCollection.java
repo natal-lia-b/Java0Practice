@@ -23,12 +23,12 @@ public class FillTravelCollection {
     private static final int CITIES_TO = 30;
 
     private Scanner scanner;
-    private TravelCollection oneTravel;
+    private TravelCollection travelCollection;
     private File file;
     private int counter;
 
-    public FillTravelCollection(File file, TravelCollection oneTravel) {
-        this.oneTravel = oneTravel;
+    public FillTravelCollection(File file, TravelCollection travelCollection) {
+        this.travelCollection = travelCollection;
         this.file = file;
     }
 
@@ -61,7 +61,7 @@ public class FillTravelCollection {
                             addMedicalTourizm(travelValidator, duration, travelType, transportType, cateringType, departurePoint, destinationPoint);
                             break;
                         default:
-                            oneTravel.addTravel(new GeneralTravel(travelType, transportType, cateringType, duration,
+                            travelCollection.addTravel(new GeneralTravel(travelType, transportType, cateringType, duration,
                                     departurePoint, destinationPoint));
                             break;
 
@@ -95,7 +95,7 @@ public class FillTravelCollection {
         String desease = scanner.next();
         if (travelValidator.isExceptionString(desease))
             desease = "";
-        oneTravel.addTravel(new MedicalTravel(travelType, transportType, cateringType, duration,
+        travelCollection.addTravel(new MedicalTravel(travelType, transportType, cateringType, duration,
                 departurePoint, destinationPoint, desease));
     }
 
@@ -109,7 +109,7 @@ public class FillTravelCollection {
                 quantityOfCities = 0;
         }
 
-        oneTravel.addTravel(new ExcursionTravel(travelType, transportType, cateringType, duration,
+        travelCollection.addTravel(new ExcursionTravel(travelType, transportType, cateringType, duration,
                 departurePoint, destinationPoint, quantityOfCities));
     }
 }
