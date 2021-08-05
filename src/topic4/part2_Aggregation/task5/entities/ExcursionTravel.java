@@ -24,7 +24,7 @@ public class ExcursionTravel extends Travel{
 
     @Override
     public String toString() {
-        return super.toString() + '\'' +
-                ", quantityOfCities='" + quantityOfCities + ".";
+        return super.toString() +
+                ", quantityOfCities='" + quantityOfCities + "\'.";
     }
 }

@@ -7,6 +7,7 @@ import topic4.part2_Aggregation.task5.enums.City;
 import topic4.part2_Aggregation.task5.enums.TransportType;
 import topic4.part2_Aggregation.task5.enums.TravelType;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -41,11 +42,12 @@ public class FilterVouchers {
             "       0 - exit to the previous level.\n" +
             "       Choose the type of travel: ";
     private String message2 = "\n       Available types of transport:\n" +
-            "       1 - by bus,\n" +
-            "       2 - by car,\n" +
-            "       3 - by train,\n" +
-            "       4 - by plane,\n" +
-            "       5 - by marine liner,\n" +
+            "       1 - on foot,\n" +
+            "       2 - by bus,\n" +
+            "       3 - by car,\n" +
+            "       4 - by train,\n" +
+            "       5 - by plane,\n" +
+            "       6 - by marine liner,\n" +
             "       0 - exit to the previous level.\n" +
             "       Choose the type of transport: ";
     private String message3 = "\n       Available types of catering:\n" +
@@ -74,7 +76,7 @@ public class FilterVouchers {
             "       Choose city: ";
 
     private TravelCollection travelCollection;
-    private TravelCollection travelList = new TravelCollection();
+    private TravelCollection travelList;
 
     private TravelType travelTypeForFilter;
     private TransportType transportTypeForFilter;
@@ -87,6 +89,7 @@ public class FilterVouchers {
     }
 
     public void setFilters(Scanner scanner) {
+        travelList = cloneTravelCollection(travelCollection);
         OUT1:
         while (true) {
             Integer filterNumber = Service.getInputNumber(scanner, message);
@@ -104,12 +107,14 @@ public class FilterVouchers {
                     break;
                 case 4:
                     departureForFilter = getCityFilter(scanner);
+                    setDepartureFilter();
                     break;
                 case 5:
                     destinationForFilter = getCityFilter(scanner);
+                    setDestinationFilter();
                     break;
                 case 6:
-                    generateFilteredList();
+                    showListWithFilters();
                     break;
                 case 7:
                     resetFilters();
@@ -124,20 +129,76 @@ public class FilterVouchers {
         }
     }
 
-    private void generateFilteredList() {
-        for (Travel travel : travelCollection.getTravelList()) {
-            if ((travelTypeForFilter != null && travel.getTravelType() == travelTypeForFilter) ||
-                    (transportTypeForFilter != null && travel.getTransportType() == transportTypeForFilter) ||
-                    (cateringTypeForFilter != null && travel.getCateringType() == cateringTypeForFilter) ||
-                    (departureForFilter != null && travel.getDeparture() == departureForFilter) ||
-                    (destinationForFilter != null && travel.getDestination() == destinationForFilter)) {
-                travelList.addTravel(travel);
+    private void setDestinationFilter() {
+        TravelCollection travelListCopy = cloneTravelCollection(travelList);
+        for (Travel travel : travelListCopy.getTravelList()) {
+            if (isEmptyDestinationFilter(travel)) {
+                travelList.removeTravel(travel);
             }
         }
-        if (travelList != null) {
+    }
+
+    private void setDepartureFilter() {
+        TravelCollection travelListCopy = cloneTravelCollection(travelList);
+        for (Travel travel : travelListCopy.getTravelList()) {
+            if (isEmptyDepartureFilter(travel)) {
+                travelList.removeTravel(travel);
+            }
+        }
+    }
+
+    private void setCateringFilter() {
+        TravelCollection travelListCopy = cloneTravelCollection(travelList);
+        for (Travel travel : travelListCopy.getTravelList()) {
+            if (isEmptyCateringFilter(travel)) {
+                travelList.removeTravel(travel);
+            }
+        }
+    }
+
+    private void setTravelFilter() {
+        TravelCollection travelListCopy = cloneTravelCollection(travelList);
+        for (Travel travel : travelListCopy.getTravelList()) {
+            if (isEmptyTravelFilter(travel)) {
+                travelList.removeTravel(travel);
+            }
+        }
+    }
+
+    private void setTransportFilter() {
+        TravelCollection travelListCopy = cloneTravelCollection(travelList);
+        for (Travel travel : travelListCopy.getTravelList()) {
+            if (isEmptyTransportFilter(travel)) {
+                travelList.removeTravel(travel);
+            }
+        }
+    }
+
+    private boolean isEmptyDestinationFilter(Travel travel) {
+        return destinationForFilter != null && destinationForFilter != travel.getDestination();
+    }
+
+    private boolean isEmptyDepartureFilter(Travel travel) {
+        return departureForFilter != null && departureForFilter != travel.getDeparture();
+    }
+
+    private boolean isEmptyCateringFilter(Travel travel) {
+        return cateringTypeForFilter != null && cateringTypeForFilter != travel.getCateringType();
+    }
+
+    private boolean isEmptyTransportFilter(Travel travel) {
+        return transportTypeForFilter != null && transportTypeForFilter != travel.getTransportType();
+    }
+
+    private boolean isEmptyTravelFilter(Travel travel) {
+        return travelTypeForFilter != null && travelTypeForFilter != travel.getTravelType();
+    }
+
+    private void showListWithFilters() {
+        if (travelList.getTravelList().size() > 0) {
             System.out.println(travelList.toString());
         } else {
-            System.out.println(travelCollection.toString());
+            System.out.println("Nothing to show. Reset filters.");
         }
     }
 
@@ -147,7 +208,8 @@ public class FilterVouchers {
         cateringTypeForFilter = null;
         departureForFilter = null;
         destinationForFilter = null;
-        travelList = null;
+
+        travelList = cloneTravelCollection(travelCollection);
     }
 
     private City getCityFilter(Scanner scanner) {
@@ -155,7 +217,7 @@ public class FilterVouchers {
         City city = null;
         deepFilter = Service.getInputNumber(scanner, message4);
         if (deepFilter != null) {
-            city = City.getCityByOrdinal(deepFilter);
+            city = City.getCityByOrdinal(--deepFilter);
         }
         return city;
     }
@@ -164,23 +226,43 @@ public class FilterVouchers {
         Integer deepFilter;
         deepFilter = Service.getInputNumber(scanner, message3);
         if (deepFilter != null) {
-            cateringTypeForFilter = CateringType.getCateringByOrdinal(deepFilter);
+            cateringTypeForFilter = CateringType.getCateringByOrdinal(--deepFilter);
         }
+
+        setCateringFilter();
     }
 
     private void getTransportTypeFilter(Scanner scanner) {
         Integer deepFilter;
         deepFilter = Service.getInputNumber(scanner, message2);
         if (deepFilter != null) {
-            transportTypeForFilter = TransportType.getTransportByOrdinal(deepFilter);
+            transportTypeForFilter = TransportType.getTransportByOrdinal(--deepFilter);
         }
+
+        setTransportFilter();
     }
 
     private void getTravelTypeFilter(Scanner scanner) {
         Integer deepFilter;
         deepFilter = Service.getInputNumber(scanner, message1);
         if (deepFilter != null) {
-            travelTypeForFilter = TravelType.getTravelByOrdinal(deepFilter);
+            travelTypeForFilter = TravelType.getTravelByOrdinal(--deepFilter);
         }
+
+        setTravelFilter();
+    }
+
+    private TravelCollection cloneTravelCollection(TravelCollection collectionFrom) {
+        TravelCollection collectionTo = new TravelCollection();
+        try {
+            collectionTo = (TravelCollection) collectionFrom.clone();
+            collectionTo.setTravelList((ArrayList<Travel>) collectionFrom.getTravelList().clone());
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Something wrong with travel collection creating.");
+            e.printStackTrace();
+//        } catch (ClassCastException e) {
+//            e.printStackTrace();
+        }
+        return collectionTo;
     }
 }

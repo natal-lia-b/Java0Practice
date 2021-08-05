@@ -1,10 +1,15 @@
 package topic4.part2_Aggregation.task5.actions;
 
-import topic4.part2_Aggregation.task5.entities.*;
-import topic4.part2_Aggregation.task5.enums.*;
+import topic4.part2_Aggregation.task5.entities.ExcursionTravel;
+import topic4.part2_Aggregation.task5.entities.GeneralTravel;
+import topic4.part2_Aggregation.task5.entities.MedicalTravel;
+import topic4.part2_Aggregation.task5.entities.TravelCollection;
+import topic4.part2_Aggregation.task5.enums.CateringType;
+import topic4.part2_Aggregation.task5.enums.City;
+import topic4.part2_Aggregation.task5.enums.TransportType;
+import topic4.part2_Aggregation.task5.enums.TravelType;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -72,9 +77,6 @@ public class FillTravelCollection {
             }
         } catch (NullPointerException e) {
 //            log.error("Ho-ho-ho! Null pointer exception is thrown!");
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-//            log.error("Unable to fill collection. File is not found.");
             e.printStackTrace();
         } catch (Exception e) {
 //            log.error("Exception during filling. Something have been gone in a wrong way!");

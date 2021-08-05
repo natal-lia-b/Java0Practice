@@ -25,7 +25,7 @@ public class MedicalTravel extends Travel{
 
     @Override
     public String toString() {
-        return super.toString() + '\'' +
-                ", desease='" + desease + ".";
+        return super.toString() +
+                ", desease='" + desease + "\'.";
     }
 }

@@ -29,7 +29,6 @@ public enum CateringType {
     }
 
     public static CateringType getCateringByOrdinal(int ordinal) {
-        ordinal--;
         CateringType result = null;
         CateringType[] types = CateringType.values();
         int i = 0;

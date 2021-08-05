@@ -10,7 +10,7 @@ import topic4.part2_Aggregation.task5.enums.*;
  * @since 04.08.2021
  */
 
-abstract public class Travel {
+abstract public class Travel implements Cloneable {
 
     private TravelType travelType;
     private TransportType transportType;
@@ -75,6 +75,11 @@ abstract public class Travel {
 
     public void setDestination(City destination) {
         this.destination = destination;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

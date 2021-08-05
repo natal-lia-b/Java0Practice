@@ -35,7 +35,6 @@ public enum City {
     }
 
     public static City getCityByOrdinal(int ordinal) {
-        ordinal--;
         City result = null;
         City[] types = City.values();
         int i = 0;

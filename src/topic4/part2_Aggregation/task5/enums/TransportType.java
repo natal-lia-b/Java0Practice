@@ -29,7 +29,6 @@ public enum TransportType {
     }
 
     public static TransportType getTransportByOrdinal(int ordinal) {
-        ordinal--;
         TransportType result = null;
         TransportType[] types = TransportType.values();
         int i = 0;

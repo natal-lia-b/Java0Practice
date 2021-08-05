@@ -31,7 +31,6 @@ public enum TravelType {
     }
 
     public static TravelType getTravelByOrdinal(int ordinal) {
-        ordinal--;
         TravelType result = null;
         TravelType[] types = TravelType.values();
         int i = 0;

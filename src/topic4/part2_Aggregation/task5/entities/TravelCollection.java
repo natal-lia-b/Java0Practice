@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @since 03.08.2021
  */
 
-public class TravelCollection {
+public class TravelCollection implements Cloneable{
     private ArrayList<Travel> travelList;
 
     public TravelCollection() {
@@ -22,16 +22,29 @@ public class TravelCollection {
         travelList.add(oneTravel);
     }
 
+    public void removeTravel(Travel oneTravel) {
+        travelList.remove(oneTravel);
+    }
+
     public ArrayList<Travel> getTravelList() {
         return travelList;
+    }
+
+    public void setTravelList(ArrayList<Travel> travelList) {
+        this.travelList = travelList;
     }
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for(Travel oneTravel : travelList) {
+        for (Travel oneTravel : travelList) {
             result.append(oneTravel.toString());
         }
         return result.toString();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
