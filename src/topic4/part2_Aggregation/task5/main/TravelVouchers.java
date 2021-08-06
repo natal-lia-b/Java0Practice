@@ -1,4 +1,4 @@
-package topic4.part2_Aggregation.task5.Main;
+package topic4.part2_Aggregation.task5.main;
 
 import topic4.part2_Aggregation.task5.actions.FillTravelCollection;
 import topic4.part2_Aggregation.task5.actions.FilterVouchers;
@@ -48,8 +48,10 @@ public class TravelVouchers {
                     System.out.println(travelCollection.toString());
                     break;
                 case 2:
-                    FilterVouchers filterVouchers = new FilterVouchers(travelCollection);
-                    filterVouchers.setFilters(scanner);
+                    filterCollection(scanner, travelCollection);
+                    continue OUT0;
+                case 3:
+                    sortCollection(scanner, travelCollection);
                     continue OUT0;
                 case 0:
                     System.out.println("We were glad to see you, come again. Bye!");
@@ -59,6 +61,16 @@ public class TravelVouchers {
                 }
             }
         }
+    }
+
+    private static void sortCollection(Scanner scanner, TravelCollection travelCollection) {
+//        SortVouchers sortedVouchers = new SortVouchers(travelCollection);
+//        sortedVouchers.setFilters(scanner);
+    }
+
+    private static void filterCollection(Scanner scanner, TravelCollection travelCollection) {
+        FilterVouchers filterVouchers = new FilterVouchers(travelCollection);
+        filterVouchers.setFilters(scanner);
     }
 
     private static void fillCollection(TravelCollection oneTravel) {

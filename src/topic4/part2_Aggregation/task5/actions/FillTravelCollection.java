@@ -60,7 +60,7 @@ public class FillTravelCollection {
 
                     switch (TravelType.valueOf(travel)) {
                         case EXCURSION:
-                            addExcurtion(travelValidator, duration, travelType, transportType, cateringType, departurePoint, destinationPoint);
+                            addExcursion(travelValidator, duration, travelType, transportType, cateringType, departurePoint, destinationPoint);
                             break;
                         case MEDICAL_TOURIZM:
                             addMedicalTourizm(travelValidator, duration, travelType, transportType, cateringType, departurePoint, destinationPoint);
@@ -101,7 +101,7 @@ public class FillTravelCollection {
                 departurePoint, destinationPoint, desease));
     }
 
-    private void addExcurtion(TravelValidator travelValidator, int duration, TravelType travelType,
+    private void addExcursion(TravelValidator travelValidator, int duration, TravelType travelType,
                               TransportType transportType, CateringType cateringType, City departurePoint, City destinationPoint) {
         int quantityOfCities = 0;
         if (scanner.hasNext()) {

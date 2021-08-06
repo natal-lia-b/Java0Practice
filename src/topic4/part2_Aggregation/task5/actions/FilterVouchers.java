@@ -26,7 +26,7 @@ public class FilterVouchers {
             "   3 - catering type,\n" +
             "   4 - city of departure,\n" +
             "   5 - city of destination,\n" +
-            "   6 - SHOW TRAVEL VOUCHERS by filters set,\n" +
+            "   6 - duration,\n" +
             "   7 - RESET ALL FILTERS,\n" +
             "   0 - exit to the previous level.\n" +
             "   Choose the filter: ";
@@ -78,12 +78,6 @@ public class FilterVouchers {
     private TravelCollection travelCollection;
     private TravelCollection travelList;
 
-    private TravelType travelTypeForFilter;
-    private TransportType transportTypeForFilter;
-    private CateringType cateringTypeForFilter;
-    private City departureForFilter;
-    private City destinationForFilter;
-
     public FilterVouchers(TravelCollection travelCollection) {
         this.travelCollection = travelCollection;
     }
@@ -106,15 +100,17 @@ public class FilterVouchers {
                     getCateringTypeFilter(scanner);
                     break;
                 case 4:
-                    departureForFilter = getCityFilter(scanner);
-                    setDepartureFilter();
+                    City departureForFilter = getCityFilter(scanner);
+                    setDepartureFilter(departureForFilter);
+                    showListWithFilters();
                     break;
                 case 5:
-                    destinationForFilter = getCityFilter(scanner);
-                    setDestinationFilter();
+                    City destinationForFilter = getCityFilter(scanner);
+                    setDestinationFilter(destinationForFilter);
+                    showListWithFilters();
                     break;
                 case 6:
-                    showListWithFilters();
+                    setDurationFilter(scanner);
                     break;
                 case 7:
                     resetFilters();
@@ -129,68 +125,98 @@ public class FilterVouchers {
         }
     }
 
-    private void setDestinationFilter() {
+
+    private void setDurationFilter(Scanner scanner) {
+        int max = getMaxDurationFromData();
+        Integer minDuration = Service.getInputNumber(scanner, "   Enter minimum duration (from 1 to " + max + "): ");
+        if (minDuration == null) minDuration = 1;
+
+        Integer maxDuration = Service.getInputNumber(scanner, "   Enter maximum duration (from 1 to " + max + "): ");
+        if (maxDuration == null || maxDuration > max) {
+            maxDuration = max;
+        }
+
         TravelCollection travelListCopy = cloneTravelCollection(travelList);
         for (Travel travel : travelListCopy.getTravelList()) {
-            if (isEmptyDestinationFilter(travel)) {
+            if (travel.getDuration() < minDuration || travel.getDuration() > maxDuration) {
+                travelList.removeTravel(travel);
+            }
+        }
+        showListWithFilters();
+    }
+
+    private int getMaxDurationFromData() {
+        int max = 1;
+        for (Travel travel : travelList.getTravelList()) {
+            if (travel.getDuration() > max) {
+                max = travel.getDuration();
+            }
+        }
+        return max;
+    }
+
+    private void setDestinationFilter(City city) {
+        TravelCollection travelListCopy = cloneTravelCollection(travelList);
+        for (Travel travel : travelListCopy.getTravelList()) {
+            if (isEmptyDestinationFilter(travel, city)) {
                 travelList.removeTravel(travel);
             }
         }
     }
 
-    private void setDepartureFilter() {
+    private void setDepartureFilter(City city) {
         TravelCollection travelListCopy = cloneTravelCollection(travelList);
         for (Travel travel : travelListCopy.getTravelList()) {
-            if (isEmptyDepartureFilter(travel)) {
+            if (isEmptyDepartureFilter(travel, city)) {
                 travelList.removeTravel(travel);
             }
         }
     }
 
-    private void setCateringFilter() {
+    private void setCateringFilter(CateringType cateringFilter) {
         TravelCollection travelListCopy = cloneTravelCollection(travelList);
         for (Travel travel : travelListCopy.getTravelList()) {
-            if (isEmptyCateringFilter(travel)) {
+            if (isEmptyCateringFilter(travel, cateringFilter)) {
                 travelList.removeTravel(travel);
             }
         }
     }
 
-    private void setTravelFilter() {
+    private void setTravelFilter(TravelType travelFilter) {
         TravelCollection travelListCopy = cloneTravelCollection(travelList);
         for (Travel travel : travelListCopy.getTravelList()) {
-            if (isEmptyTravelFilter(travel)) {
+            if (isEmptyTravelFilter(travel, travelFilter)) {
                 travelList.removeTravel(travel);
             }
         }
     }
 
-    private void setTransportFilter() {
+    private void setTransportFilter(TransportType transportFilter) {
         TravelCollection travelListCopy = cloneTravelCollection(travelList);
         for (Travel travel : travelListCopy.getTravelList()) {
-            if (isEmptyTransportFilter(travel)) {
+            if (isEmptyTransportFilter(travel, transportFilter)) {
                 travelList.removeTravel(travel);
             }
         }
     }
 
-    private boolean isEmptyDestinationFilter(Travel travel) {
-        return destinationForFilter != null && destinationForFilter != travel.getDestination();
+    private boolean isEmptyDestinationFilter(Travel travel, City city) {
+        return city != null && city != travel.getDestination();
     }
 
-    private boolean isEmptyDepartureFilter(Travel travel) {
-        return departureForFilter != null && departureForFilter != travel.getDeparture();
+    private boolean isEmptyDepartureFilter(Travel travel, City city) {
+        return city != null && city != travel.getDeparture();
     }
 
-    private boolean isEmptyCateringFilter(Travel travel) {
+    private boolean isEmptyCateringFilter(Travel travel, CateringType cateringTypeForFilter) {
         return cateringTypeForFilter != null && cateringTypeForFilter != travel.getCateringType();
     }
 
-    private boolean isEmptyTransportFilter(Travel travel) {
+    private boolean isEmptyTransportFilter(Travel travel, TransportType transportTypeForFilter) {
         return transportTypeForFilter != null && transportTypeForFilter != travel.getTransportType();
     }
 
-    private boolean isEmptyTravelFilter(Travel travel) {
+    private boolean isEmptyTravelFilter(Travel travel, TravelType travelTypeForFilter) {
         return travelTypeForFilter != null && travelTypeForFilter != travel.getTravelType();
     }
 
@@ -203,12 +229,6 @@ public class FilterVouchers {
     }
 
     private void resetFilters() {
-        travelTypeForFilter = null;
-        transportTypeForFilter = null;
-        cateringTypeForFilter = null;
-        departureForFilter = null;
-        destinationForFilter = null;
-
         travelList = cloneTravelCollection(travelCollection);
     }
 
@@ -223,33 +243,39 @@ public class FilterVouchers {
     }
 
     private void getCateringTypeFilter(Scanner scanner) {
+        CateringType cateringTypeForFilter = null;
         Integer deepFilter;
         deepFilter = Service.getInputNumber(scanner, message3);
         if (deepFilter != null) {
             cateringTypeForFilter = CateringType.getCateringByOrdinal(--deepFilter);
         }
 
-        setCateringFilter();
+        setCateringFilter(cateringTypeForFilter);
+        showListWithFilters();
     }
 
     private void getTransportTypeFilter(Scanner scanner) {
+        TransportType transportTypeForFilter = null;
         Integer deepFilter;
         deepFilter = Service.getInputNumber(scanner, message2);
         if (deepFilter != null) {
             transportTypeForFilter = TransportType.getTransportByOrdinal(--deepFilter);
         }
 
-        setTransportFilter();
+        setTransportFilter(transportTypeForFilter);
+        showListWithFilters();
     }
 
     private void getTravelTypeFilter(Scanner scanner) {
+        TravelType travelTypeForFilter = null;
         Integer deepFilter;
         deepFilter = Service.getInputNumber(scanner, message1);
         if (deepFilter != null) {
             travelTypeForFilter = TravelType.getTravelByOrdinal(--deepFilter);
         }
 
-        setTravelFilter();
+        setTravelFilter(travelTypeForFilter);
+        showListWithFilters();
     }
 
     private TravelCollection cloneTravelCollection(TravelCollection collectionFrom) {
@@ -260,8 +286,6 @@ public class FilterVouchers {
         } catch (CloneNotSupportedException e) {
             System.out.println("Something wrong with travel collection creating.");
             e.printStackTrace();
-//        } catch (ClassCastException e) {
-//            e.printStackTrace();
         }
         return collectionTo;
     }
