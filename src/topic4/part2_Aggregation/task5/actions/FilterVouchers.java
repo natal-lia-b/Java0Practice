@@ -7,11 +7,14 @@ import topic4.part2_Aggregation.task5.enums.City;
 import topic4.part2_Aggregation.task5.enums.TransportType;
 import topic4.part2_Aggregation.task5.enums.TravelType;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import static topic4.part2_Aggregation.task5.actions.Service.cloneTravelCollection;
+import static topic4.part2_Aggregation.task5.actions.Service.showList;
 
 /**
  * EPAM Java0Practice. Topic 4. Part 2 (aggregation). Task 5.
+ * Set/reset filters
  *
  * @author Natallia Bialiatskaya
  * @version 1.0
@@ -100,14 +103,10 @@ public class FilterVouchers {
                     getCateringTypeFilter(scanner);
                     break;
                 case 4:
-                    City departureForFilter = getCityFilter(scanner);
-                    setDepartureFilter(departureForFilter);
-                    showListWithFilters();
+                    gerDepartureFilter(scanner);
                     break;
                 case 5:
-                    City destinationForFilter = getCityFilter(scanner);
-                    setDestinationFilter(destinationForFilter);
-                    showListWithFilters();
+                    getDestinationFilter(scanner);
                     break;
                 case 6:
                     setDurationFilter(scanner);
@@ -123,6 +122,18 @@ public class FilterVouchers {
                 }
             }
         }
+    }
+
+    private void getDestinationFilter(Scanner scanner) {
+        City destinationForFilter = getCityFilter(scanner);
+        setDestinationFilter(destinationForFilter);
+        showList(travelList);
+    }
+
+    private void gerDepartureFilter(Scanner scanner) {
+        City departureForFilter = getCityFilter(scanner);
+        setDepartureFilter(departureForFilter);
+        showList(travelList);
     }
 
 
@@ -142,7 +153,7 @@ public class FilterVouchers {
                 travelList.removeTravel(travel);
             }
         }
-        showListWithFilters();
+        showList(travelList);
     }
 
     private int getMaxDurationFromData() {
@@ -220,14 +231,6 @@ public class FilterVouchers {
         return travelTypeForFilter != null && travelTypeForFilter != travel.getTravelType();
     }
 
-    private void showListWithFilters() {
-        if (travelList.getTravelList().size() > 0) {
-            System.out.println(travelList.toString());
-        } else {
-            System.out.println("Nothing to show. Reset filters.");
-        }
-    }
-
     private void resetFilters() {
         travelList = cloneTravelCollection(travelCollection);
     }
@@ -251,7 +254,7 @@ public class FilterVouchers {
         }
 
         setCateringFilter(cateringTypeForFilter);
-        showListWithFilters();
+        showList(travelList);
     }
 
     private void getTransportTypeFilter(Scanner scanner) {
@@ -263,7 +266,7 @@ public class FilterVouchers {
         }
 
         setTransportFilter(transportTypeForFilter);
-        showListWithFilters();
+        showList(travelList);
     }
 
     private void getTravelTypeFilter(Scanner scanner) {
@@ -275,18 +278,6 @@ public class FilterVouchers {
         }
 
         setTravelFilter(travelTypeForFilter);
-        showListWithFilters();
-    }
-
-    private TravelCollection cloneTravelCollection(TravelCollection collectionFrom) {
-        TravelCollection collectionTo = new TravelCollection();
-        try {
-            collectionTo = (TravelCollection) collectionFrom.clone();
-            collectionTo.setTravelList((ArrayList<Travel>) collectionFrom.getTravelList().clone());
-        } catch (CloneNotSupportedException e) {
-            System.out.println("Something wrong with travel collection creating.");
-            e.printStackTrace();
-        }
-        return collectionTo;
+        showList(travelList);
     }
 }

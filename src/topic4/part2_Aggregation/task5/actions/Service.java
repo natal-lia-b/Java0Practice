@@ -1,5 +1,9 @@
 package topic4.part2_Aggregation.task5.actions;
 
+import topic4.part2_Aggregation.task5.entities.Travel;
+import topic4.part2_Aggregation.task5.entities.TravelCollection;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Service {
@@ -16,4 +20,23 @@ public class Service {
         return inputNumber;
     }
 
+    public static TravelCollection cloneTravelCollection(TravelCollection collectionFrom) {
+        TravelCollection collectionTo = new TravelCollection();
+        try {
+            collectionTo = (TravelCollection) collectionFrom.clone();
+            collectionTo.setTravelList((ArrayList<Travel>) collectionFrom.getTravelList().clone());
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Something wrong with travel collection creating.");
+            e.printStackTrace();
+        }
+        return collectionTo;
+    }
+
+    public static void showList(TravelCollection travelList) {
+        if (travelList.getTravelList().size() > 0) {
+            System.out.println(travelList.toString());
+        } else {
+            System.out.println("Nothing to show. Reset filters.");
+        }
+    }
 }

@@ -3,6 +3,7 @@ package topic4.part2_Aggregation.task5.main;
 import topic4.part2_Aggregation.task5.actions.FillTravelCollection;
 import topic4.part2_Aggregation.task5.actions.FilterVouchers;
 import topic4.part2_Aggregation.task5.actions.Service;
+import topic4.part2_Aggregation.task5.actions.SortVouchers;
 import topic4.part2_Aggregation.task5.entities.TravelCollection;
 
 import java.io.File;
@@ -33,13 +34,14 @@ public class TravelVouchers {
         String message = "\nMain menu:\n" +
                 "1 - show travel collection including all available tours,\n" +
                 "2 - set filters,\n" +
+                "3 - sort collection,\n" +
                 "0 - exit.\n" +
                 "Choose the action: ";
-        TravelCollection filteredTravel = new TravelCollection();
         TravelCollection travelCollection = new TravelCollection();
         fillCollection(travelCollection);
 
-        OUT0: while (true) {
+        OUT0:
+        while (true) {
             Integer inputNumber = Service.getInputNumber(scanner, message);
             if (inputNumber == null) continue;
 
@@ -64,8 +66,8 @@ public class TravelVouchers {
     }
 
     private static void sortCollection(Scanner scanner, TravelCollection travelCollection) {
-//        SortVouchers sortedVouchers = new SortVouchers(travelCollection);
-//        sortedVouchers.setFilters(scanner);
+        SortVouchers sortedVouchers = new SortVouchers(travelCollection);
+        sortedVouchers.sort(scanner);
     }
 
     private static void filterCollection(Scanner scanner, TravelCollection travelCollection) {
