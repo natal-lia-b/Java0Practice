@@ -1,5 +1,8 @@
 package topic4.part2_Aggregation.task5.main;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import topic4.part2_Aggregation.task5.actions.FillTravelCollection;
 import topic4.part2_Aggregation.task5.actions.FilterVouchers;
 import topic4.part2_Aggregation.task5.actions.Service;
@@ -11,7 +14,7 @@ import java.util.Scanner;
 
 /**
  * EPAM Java0Practice. Topic 4. Part 2 (aggregation). Task 5.
- * <p>
+ *
  * 5. Туристические путевки.
  * Сформировать набор предложений клиенту по выбору туристической путевки различного типа
  * (отдых, экскурсии, лечение, шопинг, круиз и т. д.) для оптимального выбора.
@@ -25,8 +28,8 @@ import java.util.Scanner;
 
 public class TravelVouchers {
 
-    //    private static final Logger log = Logger.getLogger(MainTask04.class);
-    private static final String FILE_PATH = "v:\\Projects\\Java0Practice\\src\\topic4\\part2_Aggregation\\task5\\Data.txt";
+    static Logger logger = LogManager.getLogger(TravelVouchers.class);
+    private static final String FILE_PATH = "src\\topic4\\part2_Aggregation\\task5\\Data.txt";
 
     private static void start() {
         Scanner scanner = new Scanner(System.in).useDelimiter("\n");
@@ -63,6 +66,7 @@ public class TravelVouchers {
                 }
             }
         }
+
     }
 
     private static void sortCollection(Scanner scanner, TravelCollection travelCollection) {
@@ -82,7 +86,9 @@ public class TravelVouchers {
     }
 
     public static void main(String[] args) {
+        logger.log(Level.INFO, "app started.");
         start();
+        logger.log(Level.INFO, "app finished.");
     }
 }
 

@@ -1,6 +1,11 @@
 package topic4.part2_Aggregation.task5.actions;
 
-import topic4.part2_Aggregation.task5.enums.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import topic4.part2_Aggregation.task5.enums.CateringType;
+import topic4.part2_Aggregation.task5.enums.City;
+import topic4.part2_Aggregation.task5.enums.TransportType;
+import topic4.part2_Aggregation.task5.enums.TravelType;
 import topic4.part2_Aggregation.task5.exceptions.DurationException;
 
 /**
@@ -14,7 +19,8 @@ import topic4.part2_Aggregation.task5.exceptions.DurationException;
 
 public class TravelValidator {
 
-    //    private static final Logger log = Logger.getLogger(TravelValidator.class);
+    static Logger logger = LogManager.getLogger();
+
     private static final int DURATION_FROM = 1;
     private static final int DURATION_TO = 60;
 
@@ -22,7 +28,7 @@ public class TravelValidator {
     }
 
     private boolean catchException(String argument, String name, Exception e) {
-//        log.error("Argument '" + argument + "' for enum '" + name + "' is of wrong type.");
+        logger.error("Argument '" + argument + "' for enum '" + name + "' is of wrong type.");
         e.printStackTrace();
         return false;
     }
@@ -32,7 +38,7 @@ public class TravelValidator {
 
         if (String.valueOf(strValue) == null) {
             isException = true;
-//            log.error("Argument '" + strValue + "' is of wrong type.");
+            logger.error("Argument '" + strValue + "' is of wrong type.");
         }
         return isException;
     }

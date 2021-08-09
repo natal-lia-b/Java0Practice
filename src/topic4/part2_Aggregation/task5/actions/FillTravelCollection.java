@@ -1,5 +1,8 @@
 package topic4.part2_Aggregation.task5.actions;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import topic4.part2_Aggregation.task5.entities.ExcursionTravel;
 import topic4.part2_Aggregation.task5.entities.GeneralTravel;
 import topic4.part2_Aggregation.task5.entities.MedicalTravel;
@@ -23,7 +26,7 @@ import java.util.Scanner;
 
 public class FillTravelCollection {
 
-    //    private static final Logger log = Logger.getLogger(FillTravelCollection.class);
+    static Logger logger = LogManager.getLogger();
     private static final int CITIES_FROM = 0;
     private static final int CITIES_TO = 30;
 
@@ -38,6 +41,7 @@ public class FillTravelCollection {
     }
 
     public void fill() {
+        logger.log(Level.INFO, "fill() started.");
         try {
             scanner = new Scanner(file);
             TravelValidator travelValidator = new TravelValidator();
@@ -72,24 +76,26 @@ public class FillTravelCollection {
 
                     }
                     counter++;
-//                    log.info("One item '" + travelType + "' was added");
+                    logger.info("One item '" + travelType + "' was added");
                 }
             }
         } catch (NullPointerException e) {
-//            log.error("Ho-ho-ho! Null pointer exception is thrown!");
+            logger.error("Ho-ho-ho! Null pointer exception is thrown!");
             e.printStackTrace();
         } catch (Exception e) {
-//            log.error("Exception during filling. Something have been gone in a wrong way!");
+            logger.error("Exception during filling. Something have been gone in a wrong way!");
             e.printStackTrace();
         } finally {
             if (counter > 0) {
                 System.out.println("Collection is filled up and contains " + counter + " elements. " +
                         "Now you can select your tour.");
+                logger.info("Collection is filled up and contains " + counter + " elements. ");
             } else {
                 System.out.println("Collection is NOT filled up! Check your file and try again.");
             }
             scanner.close();
         }
+        logger.info("fill() finished.");
     }
 
     private void addMedicalTourizm(TravelValidator travelValidator, int duration, TravelType travelType,

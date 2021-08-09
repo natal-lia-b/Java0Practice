@@ -6,6 +6,15 @@ import topic4.part2_Aggregation.task5.entities.TravelCollection;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * EPAM Java0Practice. Topic 4. Part 2 (aggregation). Task 5.
+ * Service methods
+ *
+ * @author Natallia Bialiatskaya
+ * @version 1.0
+ * @since 04.08.2021
+ */
+
 public class Service {
 
     public static Integer getInputNumber(Scanner scanner, String message) {

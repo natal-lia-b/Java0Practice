@@ -1,5 +1,7 @@
 package topic4.part2_Aggregation.task5.actions;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import topic4.part2_Aggregation.task5.entities.Travel;
 import topic4.part2_Aggregation.task5.entities.TravelCollection;
 import topic4.part2_Aggregation.task5.enums.CateringType;
@@ -22,6 +24,8 @@ import static topic4.part2_Aggregation.task5.actions.Service.showList;
  */
 
 public class FilterVouchers {
+
+    static Logger logger = LogManager.getLogger();
 
     private String message = "\n   Available filters:\n" +
             "   1 - travel type,\n" +
@@ -233,6 +237,7 @@ public class FilterVouchers {
 
     private void resetFilters() {
         travelList = cloneTravelCollection(travelCollection);
+        showList(travelList);
     }
 
     private City getCityFilter(Scanner scanner) {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @since 03.08.2021
  */
 
-public class TravelCollection implements Cloneable{
+public class TravelCollection implements Cloneable {
     private ArrayList<Travel> travelList;
 
     public TravelCollection() {
