@@ -1,6 +1,5 @@
 package topic4.part2_Aggregation.task5.actions;
 
-import topic4.part2_Aggregation.task5.comparators.*;
 import topic4.part2_Aggregation.task5.entities.Travel;
 import topic4.part2_Aggregation.task5.entities.TravelCollection;
 
@@ -76,32 +75,32 @@ public class SortVouchers {
     }
 
     private void sortByDuration() {
-        Comparator<Travel> comparator = new DurationComparator();
+        Comparator<Travel> comparator = new Travel.DurationComparator();
         sortAndShow(comparator);
     }
 
     private void sortByDeparture() {
-        Comparator<Travel> comparator = new DepartureComparator();
+        Comparator<Travel> comparator = new Travel.DepartureComparator();
         sortAndShow(comparator);
     }
 
     private void sortByDestination() {
-        Comparator<Travel> comparator = new DestinationComparator();
+        Comparator<Travel> comparator = new Travel.DestinationComparator();
         sortAndShow(comparator);
     }
 
     private void sortByCateringType() {
-        Comparator<Travel> comparator = new CateringTypeComparator();
+        Comparator<Travel> comparator = new Travel.CateringTypeComparator();
         sortAndShow(comparator);
     }
 
     private void sortByTransportType() {
-        Comparator<Travel> comparator = new TransportTypeComparator();
+        Comparator<Travel> comparator = new Travel.TransportTypeComparator();
         sortAndShow(comparator);
     }
 
     private void sortByTravelType() {
-        Comparator<Travel> comparator = new TravelTypeComparator();
+        Comparator<Travel> comparator = new Travel.TravelTypeComparator();
         sortAndShow(comparator);
     }
 

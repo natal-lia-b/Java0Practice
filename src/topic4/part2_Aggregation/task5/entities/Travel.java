@@ -1,13 +1,19 @@
 package topic4.part2_Aggregation.task5.entities;
 
-import topic4.part2_Aggregation.task5.enums.*;
+import topic4.part2_Aggregation.task5.enums.CateringType;
+import topic4.part2_Aggregation.task5.enums.City;
+import topic4.part2_Aggregation.task5.enums.TransportType;
+import topic4.part2_Aggregation.task5.enums.TravelType;
+
+import java.util.Comparator;
+
 /**
  * EPAM Java0Practice. Topic 4. Part 2 (aggregation). Task 5.
  * Abstract class for travelling
  *
  * @author Natallia Bialiatskaya
- * @version 1.0
- * @since 04.08.2021
+ * @version 2.0
+ * @since 11.08.2021
  */
 
 abstract public class Travel implements Cloneable {
@@ -109,5 +115,78 @@ abstract public class Travel implements Cloneable {
                 ", duration=" + duration +
                 ", departure='" + departure + '\'' +
                 ", destination='" + destination + '\'';
+    }
+
+    /**
+     * Class to sort travel collection by catering type
+     * @version 2.0
+     * @since 11.08.2021
+     */
+    public static class CateringTypeComparator implements Comparator<Travel> {
+        @Override
+        public int compare(Travel o1, Travel o2) {
+            return o1.getCateringType().toString().compareTo(o2.getCateringType().toString());
+        }
+    }
+
+    /**
+     * Class to sort travel collection by city of departure
+     * @version 2.0
+     * @since 11.08.2021
+     */
+    public static class DepartureComparator implements Comparator<Travel> {
+        @Override
+        public int compare(Travel o1, Travel o2) {
+            return o1.getDeparture().toString().compareTo(o2.getDeparture().toString());
+        }
+    }
+
+    /**
+     * Class to sort travel collection by city of destination
+     * @version 2.0
+     * @since 11.08.2021
+     */
+    public static class DestinationComparator implements Comparator<Travel> {
+        @Override
+        public int compare(Travel o1, Travel o2) {
+            return o1.getDestination().toString().compareTo(o2.getDestination().toString());
+        }
+    }
+
+    /**
+     * Class to sort travel collection by duration
+     * @version 2.0
+     * @since 11.08.2021
+     */
+    public static class DurationComparator implements Comparator<Travel> {
+        @Override
+        public int compare(Travel o1, Travel o2) {
+            return o1.getDuration() - o2.getDuration();
+        }
+
+    }
+
+    /**
+     * Class to sort travel collection by transport type
+     * @version 2.0
+     * @since 11.08.2021
+     */
+    public static class TransportTypeComparator implements Comparator<Travel> {
+        @Override
+        public int compare(Travel o1, Travel o2) {
+            return o1.getTransportType().toString().compareTo(o2.getTransportType().toString());
+        }
+    }
+
+    /**
+     * Class to sort travel collection by travel type
+     * @version 2.0
+     * @since 11.08.2021
+     */
+    public static class TravelTypeComparator implements Comparator<Travel> {
+        @Override
+        public int compare(Travel o1, Travel o2) {
+            return o1.getTravelType().toString().compareTo(o2.getTravelType().toString());
+        }
     }
 }
