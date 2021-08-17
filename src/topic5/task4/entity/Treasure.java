@@ -4,7 +4,7 @@ import topic5.task4.enumeration.TypesOfTreasures;
 
 import java.util.Objects;
 
-public class Treasure {
+public class Treasure implements Comparable<Treasure> {
     private TypesOfTreasures name;
     private double cost;
     private int quantity;
@@ -65,5 +65,10 @@ public class Treasure {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public int compareTo(Treasure o) {
+        return Double.compare(this.cost, o.cost);
     }
 }

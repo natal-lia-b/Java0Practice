@@ -1,20 +1,22 @@
 package topic5.task4.entity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TreasureCollection {
-    List<Treasure> treasures = new ArrayList<>();
+    ArrayList<Treasure> treasures = new ArrayList<>();
+
+    public TreasureCollection() {
+    }
 
     public void addTreasure(Treasure treasure) {
         treasures.add(treasure);
     }
 
-    public List<Treasure> getTreasures() {
+    public ArrayList<Treasure> getTreasures() {
         return treasures;
     }
 
-    public void setTreasures(List<Treasure> treasures) {
+    public void setTreasures(ArrayList<Treasure> treasures) {
         this.treasures = treasures;
     }
 

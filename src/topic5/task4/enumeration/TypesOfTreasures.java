@@ -7,6 +7,7 @@ public enum TypesOfTreasures {
     SILVER_EARRINGS("Silver earring"),
     BRILLIANT("Brilliant"),
     DIAMANT("Diamant"),
+    PUPKA("Pupka"),
     ADAMANT("Adamant");
 
     private String string;

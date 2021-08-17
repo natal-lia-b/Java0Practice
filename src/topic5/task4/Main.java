@@ -1,6 +1,7 @@
 package topic5.task4;
 
 import topic5.task4.action.FillTreasureCollection;
+import topic5.task4.action.TheMostExpensiveTreasure;
 import topic5.task4.entity.TreasureCollection;
 
 import java.io.BufferedReader;
@@ -54,6 +55,7 @@ public class Main {
                         break;
                     }
                     case 2: {
+                        System.out.println(TheMostExpensiveTreasure.find(treasureCollection.getTreasures()));
                         break;
                     }
                     case 0: {
