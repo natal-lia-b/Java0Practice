@@ -1,12 +1,12 @@
-package topic4.part2_Aggregation.task5.actions;
+package topic4.part2_Aggregation.task5.action;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import topic4.part2_Aggregation.task5.enums.CateringType;
-import topic4.part2_Aggregation.task5.enums.City;
-import topic4.part2_Aggregation.task5.enums.TransportType;
-import topic4.part2_Aggregation.task5.enums.TravelType;
-import topic4.part2_Aggregation.task5.exceptions.DurationException;
+import topic4.part2_Aggregation.task5.enumeration.CateringType;
+import topic4.part2_Aggregation.task5.enumeration.City;
+import topic4.part2_Aggregation.task5.enumeration.TransportType;
+import topic4.part2_Aggregation.task5.enumeration.TravelType;
+import topic4.part2_Aggregation.task5.exception.DurationException;
 
 /**
  * EPAM Java0Practice. Topic 4. Part 2 (aggregation). Task 5.

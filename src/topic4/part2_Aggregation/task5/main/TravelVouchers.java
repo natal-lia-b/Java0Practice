@@ -3,11 +3,11 @@ package topic4.part2_Aggregation.task5.main;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import topic4.part2_Aggregation.task5.actions.FillTravelCollection;
-import topic4.part2_Aggregation.task5.actions.FilterVouchers;
-import topic4.part2_Aggregation.task5.actions.Service;
-import topic4.part2_Aggregation.task5.actions.SortVouchers;
-import topic4.part2_Aggregation.task5.entities.TravelCollection;
+import topic4.part2_Aggregation.task5.action.FillTravelCollection;
+import topic4.part2_Aggregation.task5.action.FilterVouchers;
+import topic4.part2_Aggregation.task5.action.Service;
+import topic4.part2_Aggregation.task5.action.SortVouchers;
+import topic4.part2_Aggregation.task5.entity.TravelCollection;
 
 import java.io.File;
 import java.util.Scanner;

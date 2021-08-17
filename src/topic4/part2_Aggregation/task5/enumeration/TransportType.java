@@ -1,4 +1,4 @@
-package topic4.part2_Aggregation.task5.enums;
+package topic4.part2_Aggregation.task5.enumeration;
 
 /**
  * EPAM Java0Practice. Topic 4. Part 2 (aggregation). Task 5.

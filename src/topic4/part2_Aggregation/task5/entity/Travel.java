@@ -1,9 +1,9 @@
-package topic4.part2_Aggregation.task5.entities;
+package topic4.part2_Aggregation.task5.entity;
 
-import topic4.part2_Aggregation.task5.enums.CateringType;
-import topic4.part2_Aggregation.task5.enums.City;
-import topic4.part2_Aggregation.task5.enums.TransportType;
-import topic4.part2_Aggregation.task5.enums.TravelType;
+import topic4.part2_Aggregation.task5.enumeration.CateringType;
+import topic4.part2_Aggregation.task5.enumeration.City;
+import topic4.part2_Aggregation.task5.enumeration.TransportType;
+import topic4.part2_Aggregation.task5.enumeration.TravelType;
 
 import java.util.Comparator;
 

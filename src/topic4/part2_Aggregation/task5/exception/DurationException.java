@@ -1,4 +1,4 @@
-package topic4.part2_Aggregation.task5.exceptions;
+package topic4.part2_Aggregation.task5.exception;
 
 //import org.apache.log4j.Logger;
 

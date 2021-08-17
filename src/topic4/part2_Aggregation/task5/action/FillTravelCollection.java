@@ -1,16 +1,16 @@
-package topic4.part2_Aggregation.task5.actions;
+package topic4.part2_Aggregation.task5.action;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import topic4.part2_Aggregation.task5.entities.ExcursionTravel;
-import topic4.part2_Aggregation.task5.entities.GeneralTravel;
-import topic4.part2_Aggregation.task5.entities.MedicalTravel;
-import topic4.part2_Aggregation.task5.entities.TravelCollection;
-import topic4.part2_Aggregation.task5.enums.CateringType;
-import topic4.part2_Aggregation.task5.enums.City;
-import topic4.part2_Aggregation.task5.enums.TransportType;
-import topic4.part2_Aggregation.task5.enums.TravelType;
+import topic4.part2_Aggregation.task5.entity.ExcursionTravel;
+import topic4.part2_Aggregation.task5.entity.GeneralTravel;
+import topic4.part2_Aggregation.task5.entity.MedicalTravel;
+import topic4.part2_Aggregation.task5.entity.TravelCollection;
+import topic4.part2_Aggregation.task5.enumeration.CateringType;
+import topic4.part2_Aggregation.task5.enumeration.City;
+import topic4.part2_Aggregation.task5.enumeration.TransportType;
+import topic4.part2_Aggregation.task5.enumeration.TravelType;
 
 import java.io.File;
 import java.util.Scanner;

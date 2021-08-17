@@ -1,7 +1,7 @@
-package topic4.part2_Aggregation.task5.actions;
+package topic4.part2_Aggregation.task5.action;
 
-import topic4.part2_Aggregation.task5.entities.Travel;
-import topic4.part2_Aggregation.task5.entities.TravelCollection;
+import topic4.part2_Aggregation.task5.entity.Travel;
+import topic4.part2_Aggregation.task5.entity.TravelCollection;
 
 import java.util.ArrayList;
 import java.util.Scanner;
