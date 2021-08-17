@@ -1,7 +1,7 @@
 package topic5.task4;
 
-import topic5.task4.actions.FillTreasureCollection;
-import topic5.task4.entities.TreasureCollection;
+import topic5.task4.action.FillTreasureCollection;
+import topic5.task4.entity.TreasureCollection;
 
 import java.io.BufferedReader;
 import java.io.IOException;

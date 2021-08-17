@@ -1,6 +1,6 @@
-package topic5.task4.entities;
+package topic5.task4.entity;
 
-import topic5.task4.enums.TypesOfTreasures;
+import topic5.task4.enumeration.TypesOfTreasures;
 
 import java.util.Objects;
 

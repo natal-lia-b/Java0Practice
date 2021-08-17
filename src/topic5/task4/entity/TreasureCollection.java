@@ -1,4 +1,4 @@
-package topic5.task4.entities;
+package topic5.task4.entity;
 
 import java.util.ArrayList;
 import java.util.List;

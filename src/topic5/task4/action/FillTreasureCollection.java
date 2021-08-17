@@ -1,8 +1,8 @@
-package topic5.task4.actions;
+package topic5.task4.action;
 
-import topic5.task4.entities.Treasure;
-import topic5.task4.entities.TreasureCollection;
-import topic5.task4.enums.TypesOfTreasures;
+import topic5.task4.entity.Treasure;
+import topic5.task4.entity.TreasureCollection;
+import topic5.task4.enumeration.TypesOfTreasures;
 
 import java.io.*;
 

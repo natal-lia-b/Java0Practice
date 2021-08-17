@@ -1,4 +1,4 @@
-package topic5.task4.enums;
+package topic5.task4.enumeration;
 
 public enum TypesOfTreasures {
     GOLD("Gold"),
